@@ -25,7 +25,7 @@
               {"type": "string"},
               {"type": "number"}
             ],
-            "pattern": "^-[1]{1,1} *[ seconds| minutes| hours| days| months| years]*|^0&|^[1-9]+ [seconds|minutes|hours|days|months|years]{1,1}"
+            "pattern": "^(-1|0|((-1|[0-9]+) +(seconds|minutes|hours|days|months|years)( *, *)?)+)$"
           },
           "time_units": {
             "type": "string",
@@ -87,14 +87,19 @@
             }
           },
           "new_file_freq": {
-            "type": "string",
-            "pattern": "[0-9]{1,} [a-z]{1,}"
+            "anyOf": [
+              {"type": "string"}
+            ],
+            "pattern": "^(0*[1-9][0-9]* (seconds|minutes|hours|days|months|years), )*0*[1-9][0-9]* (seconds|minutes|hours|days|months|years)$"
           },
           "start_time": {
             "type": "string"
           },
           "file_duration": {
-            "type": "string"
+            "anyOf": [
+              {"type": "string"}
+            ],
+            "pattern": "^(0*[1-9][0-9]* (seconds|minutes|hours|days|months|years), )*0*[1-9][0-9]* (seconds|minutes|hours|days|months|years)$"
           },
           "varlist": {
             "type": "array",
