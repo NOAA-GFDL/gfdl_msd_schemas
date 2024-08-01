@@ -87,24 +87,18 @@
             }
           },
           "new_file_freq": {
-            "anyOf": [
-              {"type": "string"}
-            ],
+            "type": "string",
             "pattern": "^(0*[1-9][0-9]* (seconds|minutes|hours|days|months|years), )*0*[1-9][0-9]* (seconds|minutes|hours|days|months|years)$"
           },
           "start_time": {
             "type": "string"
           },
           "file_duration": {
-            "anyOf": [
-              {"type": "string"}
-            ],
+            "type": "string",
             "pattern": "^(0*[1-9][0-9]* (seconds|minutes|hours|days|months|years), )*0*[1-9][0-9]* (seconds|minutes|hours|days|months|years)$"
           },
           "is_ocean": {
-            "anyOf": [
-              {"type": "boolean"}
-            ]
+            "type": "boolean"
           },
           "kind": {
             "type": "string",
