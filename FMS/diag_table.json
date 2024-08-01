@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "required": ["title", "base_date"],
   "additionalProperties": false,
@@ -25,7 +25,7 @@
               {"type": "string"},
               {"type": "number"}
             ],
-            "pattern": "^-[1]{1,1} *[ seconds| minutes| hours| days| months| years]*|^0&|^[1-9]+ [seconds|minutes|hours|days|months|years]{1,1}"
+            "pattern": "^(-1|0|((-1|[0-9]+) +(seconds|minutes|hours|days|months|years)( *, *)?)+)$"
           },
           "time_units": {
             "type": "string",
@@ -88,19 +88,34 @@
           },
           "new_file_freq": {
             "type": "string",
-            "pattern": "[0-9]{1,} [a-z]{1,}"
+            "pattern": "^(0*[1-9][0-9]* (seconds|minutes|hours|days|months|years), )*0*[1-9][0-9]* (seconds|minutes|hours|days|months|years)$"
           },
           "start_time": {
             "type": "string"
           },
           "file_duration": {
+            "type": "string",
+            "pattern": "^(0*[1-9][0-9]* (seconds|minutes|hours|days|months|years), )*0*[1-9][0-9]* (seconds|minutes|hours|days|months|years)$"
+          },
+          "is_ocean": {
+            "type": "boolean"
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["r4", "r8", "i4", "i8"]
+          },
+          "module": {
             "type": "string"
+          },
+          "reduction": {
+            "type": "string",
+            "pattern": "^average$|^min$|^max$|^none$|^rms$|^sum$|^diurnal[1-9]+|^pow[1-9]+"
           },
           "varlist": {
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["var_name", "reduction", "module", "kind"],
+              "required": ["var_name"],
               "additionalProperties": false,
               "properties": {
                 "kind": {
@@ -134,7 +149,57 @@
               }
             }
           }
-        }
+        },
+        "allOf": [
+          {
+            "if": {
+               "required": ["kind"]
+              },
+            "else": {
+              "properties": {
+                "varlist": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["kind"]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+               "required": ["module"]
+              },
+            "else": {
+              "properties": {
+                "varlist": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["module"]
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+               "required": ["reduction"]
+              },
+            "else": {
+              "properties": {
+                "varlist": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["reduction"]
+                  }
+                }
+              }
+            }
+          }
+        ]
       }
     }
   }

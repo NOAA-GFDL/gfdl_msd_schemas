@@ -61,7 +61,8 @@
                       },
                       "source": {
                         "type": "string",
-                        "minLength": 1
+                        "minLength": 1,
+                        "enum": ["fregrid"]
                       }
                     },
                     "required": ["file_name", "source"],
