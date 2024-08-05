@@ -5,10 +5,17 @@
   "additionalProperties": false,
   "properties": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "base_date": {
-      "type": "string"
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      }
     },
     "diag_files": {
       "type": "array",
@@ -18,7 +25,8 @@
         "additionalProperties": false,
         "properties": {
           "file_name": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           },
           "freq": {
             "anyOf": [
@@ -32,7 +40,8 @@
             "enum": ["seconds", "minutes", "hours", "days", "months", "years"]
           },
           "unlimdim": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           },
           "write_file": {
             "type": "boolean"
@@ -91,7 +100,13 @@
             "pattern": "^(0*[1-9][0-9]* (seconds|minutes|hours|days|months|years), )*0*[1-9][0-9]* (seconds|minutes|hours|days|months|years)$"
           },
           "start_time": {
-            "type": "string"
+            "type": "array",
+            "minItems": 6,
+            "maxItems": 6,
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            }
           },
           "file_duration": {
             "type": "string",
@@ -105,7 +120,8 @@
             "enum": ["r4", "r8", "i4", "i8"]
           },
           "module": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           },
           "reduction": {
             "type": "string",
@@ -123,23 +139,27 @@
                   "enum": ["r4", "r8", "i4", "i8"]
                 },
                 "module": {
-                  "type": "string"
+                  "type": "string",
+                  "minLength": 1
                 },
                 "reduction": {
                   "type": "string",
                   "pattern": "^average$|^min$|^max$|^none$|^rms$|^sum$|^diurnal[1-9]+|^pow[1-9]+"
                 },
                 "var_name": {
-                  "type": "string"
+                  "type": "string",
+                  "minLength": 1
                 },
                 "write_var": {
                   "type": "boolean"
                 },
                 "output_name": {
-                  "type": "string"
+                  "type": "string",
+                  "minLength": 1
                 },
                 "long_name": {
-                  "type": "string"
+                  "type": "string",
+                  "minLength": 1
                 },
                 "attributes": {
                 },
