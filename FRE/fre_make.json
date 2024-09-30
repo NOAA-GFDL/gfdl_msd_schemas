@@ -49,11 +49,13 @@
                 },
                 "container_addlibs": {
                     "description": "Libraries and packages needed for linking in the container",
-                    "type": ["array","string","null"]
+                    "type": ["array","null"],
+                    "items": {"type": "string"}
                 },
                 "baremetal_linkerflags": {
                     "description": "Linker flags of libraries and packages needed for linking in the bare-metal build",
-                    "type": ["array","string","null"]
+                    "type": ["array","null"],
+                    "items": {"type": "string"}
                 },
                 "src": {
                     "type": "array",
@@ -159,9 +161,7 @@
                 "modules": {
                     "description": "List (array) of modules to load",
                     "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
+                    "items": {"type": "string"}
                 },
                 "fc": {
                     "description": "The Fortran compiler",
@@ -181,7 +181,8 @@
                 },
                 "RUNenv": {
                     "description": "Commands needed at the beginning of a RUN in dockerfile",
-                    "type": ["array","string"]
+                    "type": ["array","null"],
+                    "items": {"type": "string"}
                 },
                 "container": {
                     "description": "True/False if using container to compile",
