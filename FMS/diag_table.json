@@ -50,7 +50,13 @@
             "maxItems": 1,
 	    "items": {
               "type": "object",
-              "additionalProperties": true
+              "additionalProperties": {
+                "oneOf": [
+                  {"type": "string"},
+                  {"type": "number"},
+                  {"type": "boolean"}
+                ]
+              }
 	    }
           },
           "sub_region": {
@@ -172,7 +178,13 @@
                   "maxItems": 1,
 	          "items": {
                     "type": "object",
-                    "additionalProperties": true
+                    "additionalProperties": {
+                      "oneOf": [
+                        {"type": "string"},
+                        {"type": "number"},
+                        {"type": "boolean"}
+		      ]
+		    }
 	          }
                 },
                "zbounds": {
