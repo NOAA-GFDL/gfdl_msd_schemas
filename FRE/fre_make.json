@@ -31,15 +31,15 @@
         },
         "compile": {
             "description": "The source code descriptions",
-            "$ref": "#/definitions/Compile"
+            "$ref": "#/$defs/Compile"
         },
         "platforms": {
             "description": "FRE platforms",
             "type": "array",
-            "items": {"$ref": "#/definitions/Platform"}
+            "items": {"$ref": "#/$defs/Platform"}
         }
     },
-    "definitions": {  
+    "$defs": {  
         "Compile": {
             "type": "object",
             "properties": {
@@ -49,17 +49,27 @@
                 },
                 "container_addlibs": {
                     "description": "Libraries and packages needed for linking in the container",
-                    "type": ["array","null"],
-                    "items": {"type": "string"}
+                    "oneOf": [
+                        {"type": "null"},
+                        {
+                         "type": "array",
+                         "items": {"type": "string"}
+                        }
+                    ]
                 },
                 "baremetal_linkerflags": {
                     "description": "Linker flags of libraries and packages needed for linking in the bare-metal build",
-                    "type": ["array","null"],
-                    "items": {"type": "string"}
+                    "oneOf": [
+                        {"type": "null"},
+                        {
+                         "type": "array",
+                         "items": {"type": "string"}
+                        }
+                    ]
                 },
                 "src": {
                     "type": "array",
-                    "items": {"$ref": "#/definitions/Src"}
+                    "items": {"$ref": "#/$defs/Src"}
                 }
             }
         },
@@ -181,7 +191,7 @@
                 },
                 "RUNenv": {
                     "description": "Commands needed at the beginning of a RUN in dockerfile",
-                    "type": ["array","null"],
+                    "type": ["array"],
                     "items": {"type": "string"}
                 },
                 "container": {
