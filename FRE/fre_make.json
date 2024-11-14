@@ -149,7 +149,11 @@
                 "makeOverrides": {
                     "description": "Overrides openmp target for MOM6",
                     "type": "string"
-                }
+                },
+                "additionalInstructions": {
+                    "description": "Additional instuctions to run after checkout",
+                    "type": "string"
+				}
             }
         },
         "Platform": {
