@@ -191,7 +191,11 @@
                 },
                 "RUNenv": {
                     "description": "Commands needed at the beginning of a RUN in dockerfile",
-                    "type": ["array"],
+                    "anyOf": [
+                      {"type": "array"}, 
+                      {"type": "string"}
+                    ],
+                    "type": ["array", "string"],
                     "items": {"type": "string"}
                 },
                 "container": {
@@ -204,6 +208,10 @@
                 },
                 "containerRun": {
                     "description": "Program used to run the container",
+                    "type": "string"
+                },
+                "containerBase": {
+                    "description": "The base image used for the container",
                     "type": "string"
                 }
             }
