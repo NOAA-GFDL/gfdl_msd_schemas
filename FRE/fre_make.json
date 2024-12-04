@@ -158,6 +158,8 @@
         },
         "Platform": {
             "type": "object",
+            "required": ["name", "compiler"],
+            "additionalProperties": false,
             "properties": {
                 "name": {
                     "description": "The name of the platform",
@@ -176,14 +178,6 @@
                     "description": "List (array) of modules to load",
                     "type": "array",
                     "items": {"type": "string"}
-                },
-                "fc": {
-                    "description": "The Fortran compiler",
-                    "type": "string"
-                },
-                "cc": {
-                    "description": "The C compiler",
-                    "type": "string"
                 },
                 "mkTemplate": {
                     "description": "Path to the mk template file",
