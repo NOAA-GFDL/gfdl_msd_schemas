@@ -192,11 +192,9 @@
                 "RUNenv": {
                     "description": "Commands needed at the beginning of a RUN in dockerfile",
                     "anyOf": [
-                      {"type": "array"}, 
+                      {"type": "array", "items": {"type": "string"}}, 
                       {"type": "string"}
-                    ],
-                    "type": ["array", "string"],
-                    "items": {"type": "string"}
+                    ]
                 },
                 "container": {
                     "description": "True/False if using container to compile",
