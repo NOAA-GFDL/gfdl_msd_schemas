@@ -75,6 +75,7 @@
         },
         "Src": {
             "type": "object",
+            "additionalProperties": false,
             "properties": {
                 "component": {
                     "description": "The name of the model component",
@@ -158,6 +159,7 @@
         },
         "Platform": {
             "type": "object",
+            "additionalProperties": false ,
             "properties": {
                 "name": {
                     "description": "The name of the platform",
@@ -204,6 +206,10 @@
                     "description": "True/False if using container to compile",
                     "type": "boolean"
                 },
+                "container2step": {
+                    "description": "True/False if creating a 2 step container build",
+                    "type": "boolean"
+                },
                 "containerBuild": {
                     "description": "Program used to build the container",
                     "type": "string"
@@ -214,6 +220,10 @@
                 },
                 "containerBase": {
                     "description": "The base image used for the container",
+                    "type": "string"
+                },
+                "container2base": {
+                    "description": "The base image used for the second build step",
                     "type": "string"
                 }
             }
