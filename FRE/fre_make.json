@@ -159,7 +159,7 @@
         },
         "Platform": {
             "type": "object",
-            "additionalProperties": false ,
+            "additionalProperties": false,
             "properties": {
                 "name": {
                     "description": "The name of the platform",
