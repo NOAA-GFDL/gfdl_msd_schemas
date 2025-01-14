@@ -10,8 +10,11 @@ the `validate_schema.py` tool in
 * `FMS/diag_table.json`
 * `FMS/field_table.json`
 
-# Disclaimer
+# Tagging policy
+Each breaking change should receive a major tag (e.g., `2025.01`), and each minor
+change should receive a minor tag (e.g., `2025.01.01`).
 
+# Disclaimer
 The United States Department of Commerce (DOC) GitHub project code is provided
 on an 'as is' basis and the user assumes responsibility for its use. DOC has
 relinquished control of the information and no longer has responsibility to
