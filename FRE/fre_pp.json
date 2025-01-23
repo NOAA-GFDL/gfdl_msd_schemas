@@ -42,13 +42,30 @@
     },
     "$defs": {
         "dirs": {
-           "history_dir": {"type":"string"},
-           "pp_dir": {"type":"string"},
-           "ptmp_dir": {"type":"string"},
-           "preanalysis_script":{"type":["string","null"]},
-           "history_refined":{"type":["string","null"]},
-           "analysis_dir":{"type":["string","null"]},
-           "fre_analysis_home": {"type":["string","null"]}
+           "history_dir": {
+                           "description": "Diectory path to raw model output.",
+                           "type":"string"
+                          },
+           "pp_dir": {
+                      "description": "Directory path to post-processing output.",
+                      "type":"string"
+                     },
+           "ptmp_dir": {
+                        "description": "Directory to use for history file cache.",
+                        "type":"string"
+                       },
+           "preanalysis_script":{
+                                 "description": "Filepath to the user script.",
+                                 "type":["string","null"]
+                                },
+           "history_refined":{
+                              "description": "",
+                              "type":["string","null"]
+                             },
+           "analysis_dir":{
+                           "description": "",
+                           "type":["string","null"]
+                          },
         },
         "pp": {
            "type": "object",
@@ -56,38 +73,114 @@
               "settings": {
                  "type:": "object",
                  "properties": {
-                    "history_segment": {"type":"string"},
-                    "site": {"type":"string"},
-                    "pp_chunk_a": {"type":"string"},
-                    "pp_chunk_b": {"type":"string"},
-                    "pp_start": {"type":"string"},
-                    "pp_stop": {"type":"string"},
-                    "pp_components": {"type":"string"}
+                    "history_segment": {
+                                        "description": "Amount of time covered by a single history file (ISO8601 datetime)",
+                                        "type":"string"
+                                       },
+                    "site": {
+                             "description": "",
+                             "type":"string"
+                            },
+                    "pp_chunk_a": {
+                                   "description": "Amount of time covered by a single postprocessed file (ISO8601 datetime).",
+                                   "type":"string"
+                                  },
+                    "pp_chunk_b": {
+                                   "description": "Secondary chunk size for postprocessed files, if desired (ISO8601 datetime). Divisble by pp_chunk_a.",
+                                   "type":"string"
+                                  },
+                    "pp_start": {
+                                 "description": "Start of the desired postprocessing (ISO8601 datetime).",
+                                 "type":"string"
+                                },
+                    "pp_stop": {
+                                "description": "End of the desired postprocessing (ISO8601 datetime)."
+                                "type":"string"
+                               },
+                    "pp_components": {
+                                      "description": "Space-separated list of user-defined components, discussed in more detail below."
+                                      "type":"string"
+                                     },
+                    "pp_grid_spec": {
+                                     "description": "Path to FMS grid definition tarfile."
+                                     "type":"string"
+                                    },
+                    "refine_diag_scripts": {
+                                            "description": "Path(s) to FMS grid definition tarfile."
+                                            "type":"array",
+                                            "items": {"type": "string"}
+                                           },
                  }
               },
               "switches": {
                  "type": "object",
                  "properties": {
-                    "clean_work": {"type":"boolean"},
-                    "do_mdtf": {"type":"boolean"},
-                    "do_statics": {"type":"boolean"},
-                    "do_timeavgs": {"type":"boolean"},
-                    "do_refinediag": {"type":"boolean"},
-                    "do_atmos_plevel_masking": {"type":"boolean"},
-                    "do_preanalysis": {"type":"boolean"},
-                    "do_analysis": {"type":"boolean"},
-                    "do_analysis_only": {"type":"boolean"}
+                    "clean_work": {
+                                   "description": "Switch to remove intermediate data files when they are no longer needed.",
+                                   "type":"boolean"
+                                  },
+                    "do_mdtf": {
+                                "description": "Switch to run MDTF on generated pp output.",
+                                "type":"boolean"
+                               },
+                    "do_statics": {
+                                   "description": "Switch to turn on/off statics processing.",
+                                   "type":"boolean"
+                                  },
+                    "do_timeavgs": {
+                                    "description": "Switch to turn on/off time-average file generation.",
+                                    "type":"boolean"
+                                   },
+                    "do_refinediag": {
+                                      "description": "Switch to run refine-diag script(s) on history file to generate additional diagnostics.",
+                                      "type":"boolean"
+                                     },
+                    "do_atmos_plevel_masking": {
+                                                "description": "Switch to mask atmos pressure-level output above/below surface pressure/atmos top.",
+                                                "type":"boolean"
+                                               },
+                    "do_preanalysis": {
+                                       "description": "Switch to run a pre-analysis script on history files",
+                                       "type":"boolean"
+                                      },
+                    "do_analysis": {
+                                    "description": "Switch to launch analysis scripts",
+                                    "type":"boolean"
+                                   },
+                    "do_analysis_only": {
+                                         "description": "Switch to only launch analysis scripts",
+                                         "type":"boolean"
+                                        }
                  }
               },
               "components": {
                  "type": "array",
                  "properties": {
-                    "type": {"type":"string"},
-                    "sources": {"type":"string"},
-                    "sourceGrid": {"type":"string"},
-                    "xyInterp": {"type":"string"},
-                    "interpMethod": {"type":"string"},
-                    "inputRealm": {"type":"string"}
+                    "type": {
+                             "description": "Component name",
+                             "type":"string"
+                            },
+                    "sources": {
+                                "description": "",
+                                "type":"array",
+                                "item": {"type": "string"}
+                               },
+                    "sourceGrid": {
+                                   "description": "",
+                                   "type":"string"
+                                  },
+                    "xyInterp": {
+                                 "description": "",
+                                 "type":"string"
+                                },
+                    "interpMethod": {
+                                     "description": "The interpolation method.",
+                                     "type":"string"
+                                    },
+                    "inputRealm": {
+                                   "description": "",
+                                   "type":"string"
+                                  }
                  }
               }
            }
