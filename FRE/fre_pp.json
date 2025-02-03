@@ -90,14 +90,14 @@
                     "pp_start": {
                                  "description": "Start of the desired postprocessing (ISO8601 datetime).",
                                  "anyOf": [
-                                           {"type":"string"}.
+                                           {"type":"string"},
                                            {"type":"integer"}
                                           ]
                                 },
                     "pp_stop": {
                                 "description": "End of the desired postprocessing (ISO8601 datetime).",
                                  "anyOf": [
-                                           {"type":"string"}.
+                                           {"type":"string"},
                                            {"type":"integer"}
                                           ]
                                },
