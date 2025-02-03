@@ -38,12 +38,17 @@
            "description": "FRE post-processing information",
            "type": "object",
            "items":{"$ref": "#/$defs/pp"}
+        },
+        "analysis": {
+           "description": "FRE analysis information",
+           "type": "object",
+           "items": {"$ref": "#/$defs/Analysis"}
         }
     },
     "$defs": {
         "dirs": {
            "history_dir": {
-                           "description": "Diectory path to raw model output.",
+                           "description": "Directory path to raw model output.",
                            "type":"string"
                           },
            "pp_dir": {
@@ -54,21 +59,14 @@
                         "description": "Directory to use for history file cache.",
                         "type":"string"
                        },
-           "preanalysis_script":{
-                                 "description": "Filepath to the user script.",
-                                 "type":["string","null"]
-                                },
-           "history_refined":{
-                              "description": "",
-                              "type":["string","null"]
-                             },
            "analysis_dir":{
-                           "description": "",
+                           "description": "Directory path to analysis scripts.",
                            "type":["string","null"]
-                          },
+                          }
         },
         "pp": {
            "type": "object",
+           "additionalProperties": false,
            "properties": {
               "settings": {
                  "type:": "object",
@@ -91,25 +89,35 @@
                                   },
                     "pp_start": {
                                  "description": "Start of the desired postprocessing (ISO8601 datetime).",
-                                 "type":"string"
+                                 "anyOf": [
+                                           {"type":"string"}.
+                                           {"type":"integer"}
+                                          ]
                                 },
                     "pp_stop": {
-                                "description": "End of the desired postprocessing (ISO8601 datetime)."
-                                "type":"string"
+                                "description": "End of the desired postprocessing (ISO8601 datetime).",
+                                 "anyOf": [
+                                           {"type":"string"}.
+                                           {"type":"integer"}
+                                          ]
                                },
                     "pp_components": {
-                                      "description": "Space-separated list of user-defined components, discussed in more detail below."
+                                      "description": "Space-separated list of user-defined components, discussed in more detail below.",
                                       "type":"string"
                                      },
                     "pp_grid_spec": {
-                                     "description": "Path to FMS grid definition tarfile."
+                                     "description": "Path to FMS grid definition tarfile.",
                                      "type":"string"
                                     },
                     "refine_diag_scripts": {
-                                            "description": "Path(s) to FMS grid definition tarfile."
+                                            "description": "Path(s) to FMS grid definition tarfile.",
                                             "type":"array",
                                             "items": {"type": "string"}
                                            },
+                    "preanalysis_script":{
+                                          "description": "Filepath to the user script.",
+                                          "type":["string","null"]
+                                         }
                  }
               },
               "switches": {
@@ -181,6 +189,37 @@
                                    "description": "",
                                    "type":"string"
                                   }
+                 }
+              }
+           }
+        },
+        "Analysis": {
+           "type": "object",
+           "additionalProperties": false,
+           "patternProperties": {
+              "^.*$": {
+                 "type:": "object",
+                 "properties": {
+                    "legacy": {
+                               "script": {"type": "string"}
+                              },
+                    "required": {
+                                 "data_frequency": {"type": "string"},
+                                 "data_range": {
+                                                "type": "array",
+                                                "items": {"type": "string"}
+                                               }
+                                },
+                    "workflow": {
+                                 "components": {
+                                                "type": "array",
+                                                "items": {"type": "string"}
+                                               },
+                                 "cumulative": {"type": "boolean"},
+                                 "product": {"type": "string"},
+                                 "script_frequency": {"type": "string"},
+                                 "switch": {"type": "boolean"}
+                                }
                  }
               }
            }
