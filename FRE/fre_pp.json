@@ -1,6 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "object",
+    "required": ["postprocess"],
     "additionalProperties": false,
     "properties": {
         "name": {
@@ -66,6 +67,7 @@
         },
         "pp": {
            "type": "object",
+           "required": ["components","settings","switches"],
            "additionalProperties": false,
            "properties": {
               "settings": {
@@ -76,7 +78,7 @@
                                         "type":"string"
                                        },
                     "site": {
-                             "description": "",
+                             "description": "Site name from file that defines parameters that can be specific to where the workflow is being run.",
                              "type":"string"
                             },
                     "pp_chunk_a": {
@@ -163,30 +165,31 @@
               },
               "components": {
                  "type": "array",
+                 "required": ["type","sources"],
                  "properties": {
                     "type": {
                              "description": "Component name",
                              "type":"string"
                             },
                     "sources": {
-                                "description": "",
+                                "description": "Mapping between history file and pp component",
                                 "type":"array",
                                 "item": {"type": "string"}
                                },
                     "sourceGrid": {
-                                   "description": "",
+                                   "description": "Input grid type.",
                                    "type":"string"
                                   },
                     "xyInterp": {
-                                 "description": "",
+                                 "description": "Lat, lon grid configuration.",
                                  "type":"string"
                                 },
                     "interpMethod": {
-                                     "description": "The interpolation method.",
+                                     "description": "The interpolation method. Required if regridding.",
                                      "type":"string"
                                     },
                     "inputRealm": {
-                                   "description": "",
+                                   "description": "Domain of component.",
                                    "type":"string"
                                   }
                  }
