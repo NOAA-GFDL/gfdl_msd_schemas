@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "object",
-    "required": ["postprocess"],
+    "required": ["directories","postprocess"],
     "additionalProperties": false,
     "properties": {
         "name": {
@@ -32,38 +32,39 @@
         },
         "directories": {
            "description": "FRE shared directories", 
-           "type": "object",
-           "items": {"$ref": "&/$defs/dirs"}
+           "$ref": "#/$defs/dirs"
         },
         "postprocess": {
            "description": "FRE post-processing information",
-           "type": "object",
-           "items":{"$ref": "#/$defs/pp"}
+           "$ref": "#/$defs/pp"
         },
         "analysis": {
            "description": "FRE analysis information",
-           "type": "object",
-           "items": {"$ref": "#/$defs/Analysis"}
+           "$ref": "#/$defs/Analysis"
         }
     },
     "$defs": {
         "dirs": {
-           "history_dir": {
-                           "description": "Directory path to raw model output.",
-                           "type":"string"
+           "type": "object",
+           "required": ["history_dir","pp_dir"],
+           "properties": {
+              "history_dir": {
+                              "description": "Directory path to raw model output.",
+                              "type": "string"
+                             },
+              "pp_dir": {
+                         "description": "Directory path to post-processing output.",
+                         "type": "string"
+                        },
+              "ptmp_dir": {
+                           "description": "Directory to use for history file cache.",
+                           "type": "string"
                           },
-           "pp_dir": {
-                      "description": "Directory path to post-processing output.",
-                      "type":"string"
-                     },
-           "ptmp_dir": {
-                        "description": "Directory to use for history file cache.",
-                        "type":"string"
-                       },
-           "analysis_dir":{
-                           "description": "Directory path to analysis scripts.",
-                           "type":["string","null"]
-                          }
+              "analysis_dir":{
+                              "description": "Directory path to analysis scripts.",
+                              "type": ["string","null"]
+                             }
+           }
         },
         "pp": {
            "type": "object",
@@ -75,50 +76,50 @@
                  "properties": {
                     "history_segment": {
                                         "description": "Amount of time covered by a single history file (ISO8601 datetime)",
-                                        "type":"string"
+                                        "type": "string"
                                        },
                     "site": {
                              "description": "Site name from file that defines parameters that can be specific to where the workflow is being run.",
-                             "type":"string"
+                             "type": "string"
                             },
                     "pp_chunk_a": {
                                    "description": "Amount of time covered by a single postprocessed file (ISO8601 datetime).",
-                                   "type":"string"
+                                   "type": "string"
                                   },
                     "pp_chunk_b": {
                                    "description": "Secondary chunk size for postprocessed files, if desired (ISO8601 datetime). Divisble by pp_chunk_a.",
-                                   "type":"string"
+                                   "type": "string"
                                   },
                     "pp_start": {
                                  "description": "Start of the desired postprocessing (ISO8601 datetime).",
                                  "anyOf": [
-                                           {"type":"string"},
-                                           {"type":"integer"}
+                                           {"type": "string"},
+                                           {"type": "integer"}
                                           ]
                                 },
                     "pp_stop": {
                                 "description": "End of the desired postprocessing (ISO8601 datetime).",
                                  "anyOf": [
-                                           {"type":"string"},
-                                           {"type":"integer"}
+                                           {"type": "string"},
+                                           {"type": "integer"}
                                           ]
                                },
                     "pp_components": {
                                       "description": "Space-separated list of user-defined components, discussed in more detail below.",
-                                      "type":"string"
+                                      "type": "string"
                                      },
                     "pp_grid_spec": {
                                      "description": "Path to FMS grid definition tarfile.",
-                                     "type":"string"
+                                     "type": "string"
                                     },
                     "refine_diag_scripts": {
                                             "description": "Path(s) to FMS grid definition tarfile.",
-                                            "type":"array",
+                                            "type": "array",
                                             "items": {"type": "string"}
                                            },
                     "preanalysis_script":{
                                           "description": "Filepath to the user script.",
-                                          "type":["string","null"]
+                                          "type": ["string","null"]
                                          }
                  }
               },
@@ -127,39 +128,39 @@
                  "properties": {
                     "clean_work": {
                                    "description": "Switch to remove intermediate data files when they are no longer needed.",
-                                   "type":"boolean"
+                                   "type": "boolean"
                                   },
                     "do_mdtf": {
                                 "description": "Switch to run MDTF on generated pp output.",
-                                "type":"boolean"
+                                "type": "boolean"
                                },
                     "do_statics": {
                                    "description": "Switch to turn on/off statics processing.",
-                                   "type":"boolean"
+                                   "type": "boolean"
                                   },
                     "do_timeavgs": {
                                     "description": "Switch to turn on/off time-average file generation.",
-                                    "type":"boolean"
+                                    "type": "boolean"
                                    },
                     "do_refinediag": {
                                       "description": "Switch to run refine-diag script(s) on history file to generate additional diagnostics.",
-                                      "type":"boolean"
+                                      "type": "boolean"
                                      },
                     "do_atmos_plevel_masking": {
                                                 "description": "Switch to mask atmos pressure-level output above/below surface pressure/atmos top.",
-                                                "type":"boolean"
+                                                "type": "boolean"
                                                },
                     "do_preanalysis": {
                                        "description": "Switch to run a pre-analysis script on history files",
-                                       "type":"boolean"
+                                       "type": "boolean"
                                       },
                     "do_analysis": {
                                     "description": "Switch to launch analysis scripts",
-                                    "type":"boolean"
+                                    "type": "boolean"
                                    },
                     "do_analysis_only": {
                                          "description": "Switch to only launch analysis scripts",
-                                         "type":"boolean"
+                                         "type": "boolean"
                                         }
                  }
               },
@@ -169,28 +170,28 @@
                  "properties": {
                     "type": {
                              "description": "Component name",
-                             "type":"string"
+                             "type": "string"
                             },
                     "sources": {
                                 "description": "Mapping between history file and pp component",
-                                "type":"array",
+                                "type": "array",
                                 "item": {"type": "string"}
                                },
                     "sourceGrid": {
                                    "description": "Input grid type.",
-                                   "type":"string"
+                                   "type": "string"
                                   },
                     "xyInterp": {
                                  "description": "Lat, lon grid configuration.",
-                                 "type":"string"
+                                 "type": "string"
                                 },
                     "interpMethod": {
                                      "description": "The interpolation method. Required if regridding.",
-                                     "type":"string"
+                                     "type": "string"
                                     },
                     "inputRealm": {
                                    "description": "Domain of component.",
-                                   "type":"string"
+                                   "type": "string"
                                   }
                  }
               }
