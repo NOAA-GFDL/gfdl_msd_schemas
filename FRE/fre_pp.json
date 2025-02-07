@@ -76,7 +76,8 @@
                  "properties": {
                     "history_segment": {
                                         "description": "Amount of time covered by a single history file (ISO8601 datetime)",
-                                        "type": "string"
+                                        "type": "string",
+                                        "pattern": "^P[0-9]+[M|Y]$"
                                        },
                     "site": {
                              "description": "Site name from file that defines parameters that can be specific to where the workflow is being run.",
@@ -84,25 +85,29 @@
                             },
                     "pp_chunk_a": {
                                    "description": "Amount of time covered by a single postprocessed file (ISO8601 datetime).",
-                                   "type": "string"
+                                   "type": "string",
+                                   "pattern": "^P[0-9]+[M|Y]$"
                                   },
                     "pp_chunk_b": {
                                    "description": "Secondary chunk size for postprocessed files, if desired (ISO8601 datetime). Divisble by pp_chunk_a.",
-                                   "type": "string"
+                                   "type": "string",
+                                   "pattern": "^P[0-9]+[M|Y]$"
                                   },
                     "pp_start": {
                                  "description": "Start of the desired postprocessing (ISO8601 datetime).",
                                  "anyOf": [
                                            {"type": "string"},
                                            {"type": "integer"}
-                                          ]
+                                          ],
+                                 "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"
                                 },
                     "pp_stop": {
                                 "description": "End of the desired postprocessing (ISO8601 datetime).",
-                                 "anyOf": [
+                                "anyOf": [
                                            {"type": "string"},
                                            {"type": "integer"}
-                                          ]
+                                         ],
+                                "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"
                                },
                     "pp_components": {
                                       "description": "Space-separated list of user-defined components, discussed in more detail below.",
