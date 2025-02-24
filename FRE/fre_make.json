@@ -218,6 +218,10 @@
                 "container2base": {
                     "description": "The base image used for the second build step",
                     "type": "string"
+                },
+                "containerOutputLocation": {
+                    "description": "The path to where the output model container will be located",
+                    "type": "string"
                 }
             }
         }
