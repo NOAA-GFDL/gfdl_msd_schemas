@@ -197,7 +197,17 @@
                     "inputRealm": {
                                    "description": "Domain of component.",
                                    "type": "string"
-                                  }
+                                  },
+                    "climatology": {
+                        "frequency": {
+                            "type": "str",
+                            "description": "Monthly or annual climatology('yr' or 'mon')"
+                        },
+                        "interval_years": {
+                            "type": "integar",
+                            "description": "Climatology interval in years"
+                        }
+                    }
                  }
               }
            }
