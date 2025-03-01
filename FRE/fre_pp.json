@@ -195,8 +195,12 @@
                 "type": "string"
               },
               "sources": {
-                "description": "Mapping between history file and pp component",
-                "type": "string"
+                "description": "History files to include in this component",
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minItems": 1
+                }
               },
               "sourceGrid": {
                 "description": "Input grid type.",
