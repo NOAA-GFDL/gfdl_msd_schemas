@@ -286,14 +286,15 @@
               "type": "object",
               "properties": {
                 "data_frequency": {
-                  "description": "http",
+                  "description": "https://github.com/NOAA-GFDL/CMIP6_CVs/blob/main/CMIP6_frequency.json",
                   "type": "string",
                   "enum": [
                     "yr",
                     "mon",
                     "day",
                     "6hr",
-                    "3hr"
+                    "3hr",
+                    "1hr"
                   ]
                 },
                 "date_range": {
