@@ -1,8 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "type": "object",
-    "required": ["directories","postprocess"],
-    "additionalProperties": false,
     "properties": {
         "name": {
             "description": "The name of the experiment",
@@ -15,20 +13,6 @@
         "target": {
             "description": "The targets listed in the command",
             "type": "string"
-        },
-        "build": {
-           "type": "object",
-           "additionalProperties": false,
-           "properties": {
-               "compileYaml": {
-                   "description": "Path to the compile yaml.",
-                   "type": "string"
-               },
-               "platformYaml": {
-                   "description": "Path to the platform yaml.",
-                   "type": "string"
-               }
-           }
         },
         "directories": {
            "description": "FRE shared directories", 
@@ -43,10 +27,11 @@
            "$ref": "#/$defs/Analysis"
         }
     },
+    "required": ["name", "platform", "target", "directories", "postprocess"],
+    "additionalProperties": true,
     "$defs": {
         "dirs": {
            "type": "object",
-           "required": ["history_dir","pp_dir"],
            "properties": {
               "history_dir": {
                               "description": "Directory path to raw model output.",
@@ -62,14 +47,14 @@
                           },
               "analysis_dir":{
                               "description": "Directory path to analysis scripts.",
-                              "type": ["string","null"]
+                              "type": "string"
                              }
-           }
+           },
+           "required": ["history_dir", "pp_dir", "ptmp_dir"],
+           "additionalProperties": false
         },
         "pp": {
            "type": "object",
-           "required": ["components","settings","switches"],
-           "additionalProperties": false,
            "properties": {
               "settings": {
                  "type:": "object",
@@ -95,18 +80,12 @@
                                   },
                     "pp_start": {
                                  "description": "Start of the desired postprocessing (ISO8601 datetime).",
-                                 "anyOf": [
-                                           {"type": "string"},
-                                           {"type": "integer"}
-                                          ],
+                                 "type": ["string", "integer"],
                                  "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"
                                 },
                     "pp_stop": {
                                 "description": "End of the desired postprocessing (ISO8601 datetime).",
-                                "anyOf": [
-                                           {"type": "string"},
-                                           {"type": "integer"}
-                                         ],
+                                "type": ["string", "integer"],
                                 "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"
                                },
                     "pp_components": {
@@ -117,16 +96,20 @@
                                      "description": "Path to FMS grid definition tarfile.",
                                      "type": "string"
                                     },
-                    "refine_diag_scripts": {
+                    "refinediag_scripts": {
                                             "description": "Path(s) to FMS grid definition tarfile.",
                                             "type": "array",
-                                            "items": {"type": "string"}
+                                            "items": {"type": "string"},
+                                            "minItems": 1,
+                                            "uniqueItems": true
                                            },
                     "preanalysis_script":{
                                           "description": "Filepath to the user script.",
-                                          "type": ["string","null"]
+                                          "type": "string"
                                          }
-                 }
+                 },
+                 "required": ["history_segment", "site", "pp_chunk_a", "pp_start", "pp_stop", "pp_components", "pp_grid_spec"],
+                 "additionalProperties": false
               },
               "switches": {
                  "type": "object",
@@ -135,10 +118,6 @@
                                    "description": "Switch to remove intermediate data files when they are no longer needed.",
                                    "type": "boolean"
                                   },
-                    "do_mdtf": {
-                                "description": "Switch to run MDTF on generated pp output.",
-                                "type": "boolean"
-                               },
                     "do_statics": {
                                    "description": "Switch to turn on/off statics processing.",
                                    "type": "boolean"
@@ -167,50 +146,70 @@
                                          "description": "Switch to only launch analysis scripts",
                                          "type": "boolean"
                                         }
-                 }
+                 },
+                 "required": ["clean_work", "do_statics", "do_timeavgs", "do_refinediag", "do_atmos_plevel_masking", "do_preanalysis", "do_analysis", "do_analysis_only"],
+                 "additionalProperties": false
               },
               "components": {
                  "type": "array",
-                 "required": ["type","sources"],
-                 "properties": {
-                    "type": {
+                 "items": {
+                     "type": "object",
+                     "properties": {
+                        "type": {
                              "description": "Component name",
                              "type": "string"
                             },
-                    "sources": {
+                        "sources": {
                                 "description": "Mapping between history file and pp component",
-                                "type": "array",
-                                "item": {"type": "string"}
+                                "type": "string"
                                },
-                    "sourceGrid": {
+                        "sourceGrid": {
                                    "description": "Input grid type.",
                                    "type": "string"
                                   },
-                    "xyInterp": {
+                        "xyInterp": {
                                  "description": "Lat, lon grid configuration.",
                                  "type": "string"
                                 },
-                    "interpMethod": {
+                        "interpMethod": {
                                      "description": "The interpolation method. Required if regridding.",
                                      "type": "string"
                                     },
-                    "inputRealm": {
+                        "inputRealm": {
                                    "description": "Domain of component.",
                                    "type": "string"
                                   },
-                    "climatology": {
-                        "frequency": {
-                            "type": "str",
-                            "description": "Monthly or annual climatology('yr' or 'mon')"
-                        },
-                        "interval_years": {
-                            "type": "integar",
-                            "description": "Climatology interval in years"
+                        "climatology": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                    "frequency": {
+                                        "description": "Monthly or annual climatology ('yr' or 'mon')",
+                                        "type": "string",
+                                        "enum": ["yr", "mon"]
+                                    },
+                                    "interval_years": {
+                                        "description": "Climatology interval in years",
+                                        "type": "integer"
+                                    }
+                                },
+                                "required": ["frequency", "interval_years"],
+                                "additionalProperties": false
+                            },
+                            "minItems": 1,
+                            "uniqueItems": true
                         }
-                    }
-                 }
+                    },
+                    "required": ["type", "sources"],
+                    "additionalProperties": false
+                 },
+                 "minItems": 1,
+                 "uniqueItems": true
               }
-           }
+           },
+           "required": ["components", "settings", "switches"],
+           "additionalProperties": false
         },
         "Analysis": {
            "type": "object",
@@ -220,26 +219,60 @@
                  "type:": "object",
                  "properties": {
                     "legacy": {
-                               "script": {"type": "string"}
+                                "type": "object",
+                                "properties": {
+                                    "script": {"type": "string"}
+                                },
+                                "required": ["script"],
+                                "additionalProperties": false
                               },
                     "required": {
-                                 "data_frequency": {"type": "string"},
-                                 "data_range": {
-                                                "type": "array",
-                                                "items": {"type": "string"}
-                                               }
+                                "type": "object",
+                                "properties": {
+                                    "data_frequency": {
+                                        "description": "http",
+                                        "type": "string",
+                                        "enum": ["yr", "mon", "day", "6hr", "3hr"]
+                                    },
+                                    "date_range": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "minItems": 2,
+                                        "maxItems": 2,
+                                        "uniqueItems": false
+                                    }
                                 },
+                                "required": ["data_frequency", "date_range"],
+                                "additionalProperties": false
+                    },
                     "workflow": {
-                                 "components": {
+                                "type": "object",
+                                "properties": {
+                                    "components": {
                                                 "type": "array",
-                                                "items": {"type": "string"}
+                                                "items": {
+                                                    "type": "string",
+                                                    "minItems": 1,
+                                                    "uniqueItems": true
+                                                }
                                                },
-                                 "cumulative": {"type": "boolean"},
-                                 "product": {"type": "string"},
-                                 "script_frequency": {"type": "string"},
-                                 "switch": {"type": "boolean"}
-                                }
-                 }
+                                    "cumulative": {"type": "boolean"},
+                                    "product": {
+                                     "type": "string"},
+                                     "enum": ["ts", "av"],
+                                    "script_frequency": {
+                                        "description": "ISO8601 duration or R1",
+                                        "type": "string"
+                                    },
+                                    "switch": {"type": "boolean"}
+                                    },
+                                "required": ["components", "cumulative", "product", "script_frequency", "switch"]
+                             }
+                 },
+                 "required": ["required", "workflow"],
+                 "additionalProperties": false
               }
            }
         }
