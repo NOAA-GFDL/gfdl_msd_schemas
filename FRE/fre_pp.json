@@ -90,17 +90,27 @@
             },
             "pp_start": {
               "description": "Start of the desired postprocessing (ISO8601 datetime).",
-                "oneOf": [
-                    {"type": "integer"},
-                    {"type": "string", "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"}
-                ]
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string",
+                  "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"
+                }
+              ]
             },
             "pp_stop": {
               "description": "End of the desired postprocessing (ISO8601 datetime).",
-                "oneOf": [
-                    {"type": "integer"},
-                    {"type": "string", "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"}
-                ]
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string",
+                  "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"
+                }
+              ]
             },
             "pp_components": {
               "description": "Space-separated list of user-defined components, discussed in more detail below.",
@@ -326,12 +336,12 @@
                   "type": "boolean"
                 },
                 "product": {
-                  "type": "string"
+                  "type": "string",
+                  "enum": [
+                    "ts",
+                    "av"
+                  ]
                 },
-                "enum": [
-                  "ts",
-                  "av"
-                ],
                 "script_frequency": {
                   "description": "ISO8601 duration or R1",
                   "type": "string"
