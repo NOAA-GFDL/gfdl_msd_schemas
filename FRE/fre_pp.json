@@ -90,19 +90,17 @@
             },
             "pp_start": {
               "description": "Start of the desired postprocessing (ISO8601 datetime).",
-              "type": [
-                "string",
-                "integer"
-              ],
-              "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"
+                "oneOf": [
+                    {"type": "integer"},
+                    {"type": "string", "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"}
+                ]
             },
             "pp_stop": {
               "description": "End of the desired postprocessing (ISO8601 datetime).",
-              "type": [
-                "string",
-                "integer"
-              ],
-              "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"
+                "oneOf": [
+                    {"type": "integer"},
+                    {"type": "string", "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"}
+                ]
             },
             "pp_components": {
               "description": "Space-separated list of user-defined components, discussed in more detail below.",
