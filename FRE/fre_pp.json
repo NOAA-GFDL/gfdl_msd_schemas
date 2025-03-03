@@ -196,9 +196,9 @@
                 "description": "History files to include in this component",
                 "type": "array",
                 "items": {
-                  "type": "string",
-                  "minItems": 1
-                }
+                  "type": "string"
+                },
+                "minItems": 1
               },
               "sourceGrid": {
                 "description": "Input grid type.",
@@ -317,10 +317,10 @@
                 "components": {
                   "type": "array",
                   "items": {
-                    "type": "string",
-                    "minItems": 1,
-                    "uniqueItems": true
-                  }
+                    "type": "string"
+                  },
+                  "minItems": 1,
+                  "uniqueItems": true
                 },
                 "cumulative": {
                   "type": "boolean"
