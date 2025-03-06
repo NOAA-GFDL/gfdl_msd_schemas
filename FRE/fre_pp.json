@@ -252,6 +252,20 @@
                 },
                 "minItems": 1,
                 "uniqueItems": true
+              },
+              "static": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "sources": {},
+                    "freq": {},
+                    "variables": {}
+                  },
+                  "required": ["sources",
+                               "freq"],
+                  "additional_properties": false
+                }
               }
             },
             "required": [
