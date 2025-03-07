@@ -258,12 +258,30 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "sources": {},
-                    "freq": {},
-                    "variables": {}
+                    "sources": {
+                      "description": "History files to include this static source",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "freq": {
+                      "description": "Static sources should have a frequency of P0[M/Y]",
+                      "type": "string"
+                    },
+                    "variables": {
+                      "description": "Variables for the static source",
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "history_file": {
+                      "description": "Path to history file if static source is for offline diagnostics (if history file not included in main history_dir",
+                      "type": "string"
+                    }
                   },
-                  "required": ["sources",
-                               "freq"],
+                  "required": ["sources"],
                   "additional_properties": false
                 }
               }
