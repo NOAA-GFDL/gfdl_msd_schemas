@@ -266,7 +266,14 @@
                   "offline_sources": {
                     "description": "Path to history file if static source is for offline diagnostics",
                     "type": "array",
-                    "item": {
+                    "items": {
+                      "string"
+                    }
+                  },
+                  "variables": {
+                    "description": "Variables included in history file",
+                    "type": "array",
+                    "items": {
                       "string"
                     }
                   }
