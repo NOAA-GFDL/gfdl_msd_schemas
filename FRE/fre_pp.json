@@ -267,18 +267,18 @@
                     "description": "Path to history file if static source is for offline diagnostics",
                     "type": "array",
                     "items": {
-                      "string"
+                      "type": "string"
                     }
                   },
                   "variables": {
                     "description": "Variables included in history file",
                     "type": "array",
                     "items": {
-                      "string"
+                      "type": "string"
                     }
                   }
                 },
-                "additional_properties": false
+                "additionalProperties": false
               }
             },
             "required": [
