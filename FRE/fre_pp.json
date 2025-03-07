@@ -252,6 +252,33 @@
                 },
                 "minItems": 1,
                 "uniqueItems": true
+              },
+              "static": {
+                "type": "object",
+                "properties": {
+                  "sources": {
+                    "description": "History files to include this static source",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "offline_sources": {
+                    "description": "Path to history file if static source is for offline diagnostics",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "variables": {
+                    "description": "Variables included in history file",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "additionalProperties": false
               }
             },
             "required": [
