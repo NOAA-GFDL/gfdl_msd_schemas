@@ -259,7 +259,7 @@
                     }
                   },
                   "offline_sources": {
-                    "description": "Path to history file if static source is for offline diagnostics",
+                    "description": "Path to static offline diagnostic",
                     "type": "array",
                     "items": {
                       "type": "string"
