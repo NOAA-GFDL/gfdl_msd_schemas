@@ -152,10 +152,6 @@
               "description": "Switch to remove intermediate data files when they are no longer needed.",
               "type": "boolean"
             },
-            "do_statics": {
-              "description": "Switch to turn on/off statics processing.",
-              "type": "boolean"
-            },
             "do_timeavgs": {
               "description": "Switch to turn on/off time-average file generation.",
               "type": "boolean"
@@ -253,7 +249,7 @@
                 "uniqueItems": true
               },
               "static": {
-                "type": "object",
+                "type": "array",
                 "properties": {
                   "sources": {
                     "description": "History files to include this static source",
