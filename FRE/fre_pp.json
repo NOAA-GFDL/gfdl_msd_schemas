@@ -183,7 +183,6 @@
           },
           "required": [
             "clean_work",
-            "do_statics",
             "do_timeavgs",
             "do_refinediag",
             "do_atmos_plevel_masking",
