@@ -250,28 +250,39 @@
               },
               "static": {
                 "type": "array",
-                "properties": {
-                  "sources": {
-                    "description": "History files to include this static source",
-                    "type": "array",
-                    "items": {
-                      "type": "string"
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "sources": {
+                          "description": "History files to include in this component",
+                          "type": "array",
+                          "items": {"type": "string"}
+                        },
+                        "variables": {
+                          "description": "Variables included in history file",
+                          "type": "array",
+                          "items": {"type": "string"}
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "offline_sources": {
+                          "description": "Path to static offline diagnostic",
+                          "type": "array",
+                          "items": {"type": "string"}
+                        },
+                        "variables": {
+                          "description": "Variables included in offline diagnostic file",
+                          "type": "array",
+                          "items": {"type": "string"}
+                        }
+                      }
                     }
-                  },
-                  "offline_sources": {
-                    "description": "Path to static offline diagnostic",
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "variables": {
-                    "description": "Variables included in history file",
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
+                  ]
                 },
                 "additionalProperties": false
               }
