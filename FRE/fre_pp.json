@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "properties": {
     "name": {
@@ -198,18 +198,22 @@
                 "type": "string"
               },
               "sources": {
-                "description": "History files to include in this component",
                 "type": "array",
                 "items": {
+                  "type": "object",
                   "properties": {
-                                  "history_file": {"type": "string"},
+                                  "history_file": {
+                                    "description": "History files to include in this component",
+                                    "type": "string"
+                                  },
                                   "variables": {
                                     "type": "array",
-                                    "items": { "type": "string" }
+                                    "items": {"type": "string"}
                                   }
-                                }
+                                },
+                  "additionalProperties": false
                 },
-                "minItems": 1
+                "required": ["history_file"]
               },
               "sourceGrid": {
                 "description": "Input grid type.",
@@ -283,7 +287,7 @@
                                   "items": {"type": "string"}
                                 }
                               },
-                              "required": ["offline_sources"] 
+                              "required": ["offline_sources"]
                              }
                            ]
                 },
