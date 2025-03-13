@@ -277,7 +277,7 @@
                                   "type": "string"
                                 }
                               },
-                              "required": ["sources"]
+                              "required": ["source"]
                              },
                              {"type": "object",
                               "properties": {
@@ -286,7 +286,7 @@
                                   "type": "string"
                                 }
                               },
-                              "required": ["offline_sources"]
+                              "required": ["offline_source"]
                              }
                            ]
                 },
