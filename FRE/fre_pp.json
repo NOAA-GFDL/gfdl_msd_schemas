@@ -272,7 +272,7 @@
                   "unevaluatedProperties": false,
                   "oneOf": [ {"type": "object",
                               "properties": {
-                                "sources": {
+                                "source": {
                                   "description": "History files to include in this component",
                                   "type": "string"
                                 }
@@ -281,10 +281,9 @@
                              },
                              {"type": "object",
                               "properties": {
-                                "offline_sources": {
+                                "offline_source": {
                                   "description": "Path to static offline diagnostic",
-                                  "type": "array",
-                                  "items": {"type": "string"}
+                                  "type": "string"
                                 }
                               },
                               "required": ["offline_sources"]
