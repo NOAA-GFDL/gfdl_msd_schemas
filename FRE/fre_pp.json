@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "properties": {
     "name": {
@@ -152,10 +152,6 @@
               "description": "Switch to remove intermediate data files when they are no longer needed.",
               "type": "boolean"
             },
-            "do_statics": {
-              "description": "Switch to turn on/off statics processing.",
-              "type": "boolean"
-            },
             "do_timeavgs": {
               "description": "Switch to turn on/off time-average file generation.",
               "type": "boolean"
@@ -183,7 +179,6 @@
           },
           "required": [
             "clean_work",
-            "do_statics",
             "do_timeavgs",
             "do_refinediag",
             "do_atmos_plevel_masking",
@@ -203,12 +198,22 @@
                 "type": "string"
               },
               "sources": {
-                "description": "History files to include in this component",
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "type": "object",
+                  "properties": {
+                                  "history_file": {
+                                    "description": "History files to include in this component",
+                                    "type": "string"
+                                  },
+                                  "variables": {
+                                    "type": "array",
+                                    "items": {"type": "string"}
+                                  }
+                                },
+                  "additionalProperties": false
                 },
-                "minItems": 1
+                "required": ["history_file"]
               },
               "sourceGrid": {
                 "description": "Input grid type.",
@@ -252,6 +257,40 @@
                 },
                 "minItems": 1,
                 "uniqueItems": true
+              },
+              "static": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "variables": {
+                      "description": "Variables included in sources",
+                      "type": "array",
+                      "items": {"type": "string"}
+                    }
+                  },
+                  "unevaluatedProperties": false,
+                  "oneOf": [ {"type": "object",
+                              "properties": {
+                                "source": {
+                                  "description": "History files to include in this component",
+                                  "type": "string"
+                                }
+                              },
+                              "required": ["source"]
+                             },
+                             {"type": "object",
+                              "properties": {
+                                "offline_source": {
+                                  "description": "Path to static offline diagnostic",
+                                  "type": "string"
+                                }
+                              },
+                              "required": ["offline_source"]
+                             }
+                           ]
+                },
+                "additionalProperties": false
               }
             },
             "required": [
