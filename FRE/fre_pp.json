@@ -202,7 +202,7 @@
                 "type": "array",
                 "items": {
                   "properties": {
-                                  "history": {"type": "string"},
+                                  "history_file": {"type": "string"},
                                   "variables": {
                                     "type": "array",
                                     "items": { "type": "string" }
