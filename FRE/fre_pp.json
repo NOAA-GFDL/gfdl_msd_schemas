@@ -201,7 +201,13 @@
                 "description": "History files to include in this component",
                 "type": "array",
                 "items": {
-                  "type": "string"
+                  "properties": {
+                                  "history": {"type": "string"},
+                                  "variables": {
+                                    "type": "array",
+                                    "items": { "type": "string" }
+                                  }
+                                }
                 },
                 "minItems": 1
               },
@@ -264,8 +270,7 @@
                               "properties": {
                                 "sources": {
                                   "description": "History files to include in this component",
-                                  "type": "array",
-                                  "items": {"type": "string"}
+                                  "type": "string"
                                 }
                               },
                               "required": ["sources"]
