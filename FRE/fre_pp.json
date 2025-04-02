@@ -287,14 +287,14 @@
                 },
                 "additionalProperties": false
               },
-              "switch": {
+              "postprocess_on": {
                 "type": "boolean"
               }
             },
             "required": [
               "type",
               "sources",
-              "switch"
+              "postprocess_on"
             ],
             "additionalProperties": false
           },
@@ -384,7 +384,7 @@
                   "description": "ISO8601 duration or R1",
                   "type": "string"
                 },
-                "switch": {
+                "analysis_on": {
                   "type": "boolean"
                 }
               },
@@ -393,7 +393,7 @@
                 "cumulative",
                 "product",
                 "script_frequency",
-                "switch"
+                "analysis_on"
               ]
             }
           },
