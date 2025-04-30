@@ -220,7 +220,12 @@
               },
               "interpMethod": {
                 "description": "The interpolation method. Required if regridding.",
-                "type": "string"
+                "type": "string",
+                "enum": [
+                  "conserve_order1",
+                  "conserve_order2",
+                  "bilinear"
+                ]
               },
               "inputRealm": {
                 "description": "Domain of component.",
