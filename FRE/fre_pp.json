@@ -78,15 +78,16 @@
               "description": "Site name from file that defines parameters that can be specific to where the workflow is being run.",
               "type": "string"
             },
-            "pp_chunk_a": {
-              "description": "Amount of time covered by a single postprocessed file (ISO8601 datetime).",
-              "type": "string",
-              "pattern": "^P[0-9]+[M|Y]$"
-            },
-            "pp_chunk_b": {
-              "description": "Secondary chunk size for postprocessed files, if desired (ISO8601 datetime). Divisble by pp_chunk_a.",
-              "type": "string",
-              "pattern": "^P[0-9]+[M|Y]$"
+            "pp_chunks": {
+              "description": "Array of chunk sizes to create",
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "description": "ISO8601 duration string representing the length, in units of model time, of postprocessed files",
+                "type": "string",
+                "pattern": "^P\d+[M|Y]$"
+              }
             },
             "pp_start": {
               "description": "Start of the desired postprocessing (ISO8601 datetime).",
@@ -133,7 +134,7 @@
           "required": [
             "history_segment",
             "site",
-            "pp_chunk_a",
+            "pp_chunks",
             "pp_start",
             "pp_stop",
             "pp_grid_spec"
@@ -375,8 +376,14 @@
                   "minItems": 1,
                   "uniqueItems": true
                 },
-                "cumulative": {
-                  "type": "boolean"
+                "script_type": {
+                  "description": "Whether the script is to process each chunk independently, cumulatively, or run only once after all chunks are ready",
+                  "type": "string",
+                  "enum": [
+                    "independent",
+                    "cumulative",
+                    "one-shot"
+                  ]
                 },
                 "product": {
                   "type": "string",
@@ -385,9 +392,10 @@
                     "av"
                   ]
                 },
-                "script_frequency": {
-                  "description": "ISO8601 duration or R1",
-                  "type": "string"
+                "chunk_size": {
+                  "description": "ISO8601 duration string representing the chunk size to use as input for this script",
+                  "type": "string",
+                  "pattern": "^P\d+[M|Y]$"
                 },
                 "analysis_on": {
                   "type": "boolean"
@@ -395,9 +403,9 @@
               },
               "required": [
                 "components",
-                "cumulative",
+                "script_type",
                 "product",
-                "script_frequency",
+                "chunk_size",
                 "analysis_on"
               ]
             }
