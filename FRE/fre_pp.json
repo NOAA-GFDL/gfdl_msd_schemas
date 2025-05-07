@@ -86,7 +86,7 @@
               "items": {
                 "description": "ISO8601 duration string representing the length, in units of model time, of postprocessed files",
                 "type": "string",
-                "pattern": "^P\d+[M|Y]$"
+                "pattern": "^P[0-9]+[M|Y]$"
               }
             },
             "pp_start": {
@@ -395,7 +395,7 @@
                 "chunk_size": {
                   "description": "ISO8601 duration string representing the chunk size to use as input for this script",
                   "type": "string",
-                  "pattern": "^P\d+[M|Y]$"
+                  "pattern": "^P[0-9]+[M|Y]$"
                 },
                 "analysis_on": {
                   "type": "boolean"
