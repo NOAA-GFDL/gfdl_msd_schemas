@@ -311,6 +311,9 @@
               "sources",
               "postprocess_on"
             ],
+            "dependentRequired": {
+              "xyInterp": ["inputRealm"]
+            },
             "additionalProperties": false
           },
           "minItems": 1,
