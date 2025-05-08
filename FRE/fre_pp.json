@@ -213,7 +213,11 @@
               },
               "sourceGrid": {
                 "description": "Input grid type.",
-                "type": "string"
+                "type": "string",
+                "enum": [
+                    "tripolar",
+                    "cubedsphere"
+                ]
               },
               "xyInterp": {
                 "description": "Lat, lon grid configuration.",
@@ -230,7 +234,12 @@
               },
               "inputRealm": {
                 "description": "Domain of component.",
-                "type": "string"
+                "type": "string",
+                "enum": [
+                    "atmos",
+                    "ocean",
+                    "land"
+                ]
               },
               "climatology": {
                 "type": "array",
