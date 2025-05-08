@@ -312,7 +312,7 @@
               "postprocess_on"
             ],
             "dependentRequired": {
-              "xyInterp": ["inputRealm"]
+              "xyInterp": ["inputRealm", "sourceGrid","interpMethod"]
             },
             "additionalProperties": false
           },
