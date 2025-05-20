@@ -366,6 +366,18 @@
                   "minItems": 2,
                   "maxItems": 2,
                   "uniqueItems": false
+                },
+                "use_gfdl_mdtf_env": {
+                  "description": "For MDTF: switch to use centrally-installed conda environment at GFDL",
+                  "type": "boolean"
+                },
+                "pods": {
+                  "description": "For MDTF: list of PODs to run",
+                  "type": "array"
+                },
+                "custom_pod_info_json": {
+                  "description": "For MDTF: optional path to a custom POD JSON configuration file",
+                  "type": "string"
                 }
               },
               "required": [
