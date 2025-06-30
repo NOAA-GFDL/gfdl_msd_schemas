@@ -378,6 +378,10 @@
                 "custom_pod_info_json": {
                   "description": "For MDTF: optional path to a custom POD JSON configuration file",
                   "type": "string"
+                },
+                "reference_catalog": {
+                  "description": "Path to intake-esm reference/observation catalog",
+                  "type": "string"
                 }
               },
               "required": [
