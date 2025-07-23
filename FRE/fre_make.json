@@ -75,6 +75,7 @@
         },
         "Src": {
             "type": "object",
+            "additionalProperties": false,
             "properties": {
                 "component": {
                     "description": "The name of the model component",
@@ -158,6 +159,8 @@
         },
         "Platform": {
             "type": "object",
+            "required": ["name", "compiler"],
+            "additionalProperties": false,
             "properties": {
                 "name": {
                     "description": "The name of the platform",
@@ -177,14 +180,6 @@
                     "type": "array",
                     "items": {"type": "string"}
                 },
-                "fc": {
-                    "description": "The Fortran compiler",
-                    "type": "string"
-                },
-                "cc": {
-                    "description": "The C compiler",
-                    "type": "string"
-                },
                 "mkTemplate": {
                     "description": "Path to the mk template file",
                     "type": "string"
@@ -195,11 +190,17 @@
                 },
                 "RUNenv": {
                     "description": "Commands needed at the beginning of a RUN in dockerfile",
-                    "type": ["array"],
-                    "items": {"type": "string"}
+                    "anyOf": [
+                      {"type": "array", "items": {"type": "string"}}, 
+                      {"type": "string"}
+                    ]
                 },
                 "container": {
                     "description": "True/False if using container to compile",
+                    "type": "boolean"
+                },
+                "container2step": {
+                    "description": "True/False if creating a 2 step container build",
                     "type": "boolean"
                 },
                 "containerBuild": {
@@ -208,6 +209,18 @@
                 },
                 "containerRun": {
                     "description": "Program used to run the container",
+                    "type": "string"
+                },
+                "containerBase": {
+                    "description": "The base image used for the container",
+                    "type": "string"
+                },
+                "container2base": {
+                    "description": "The base image used for the second build step",
+                    "type": "string"
+                },
+                "containerOutputLocation": {
+                    "description": "The path to where the output model container will be located",
                     "type": "string"
                 }
             }
