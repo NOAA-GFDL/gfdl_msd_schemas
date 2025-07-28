@@ -170,13 +170,8 @@
                     "description": "The compiler used to build the model",
                     "type": "string"
                 },
-                "modulesInit": {
-                    "description": "Array of commands to run before loading modules",
-                    "type": "array",
-                    "items": {"type": "string"}
-                },
-                "modules": {
-                    "description": "List (array) of modules to load",
+                "env_setup": {
+                    "description": "Array of commands to initialize modules, load modules, and unload modules",
                     "type": "array",
                     "items": {"type": "string"}
                 },
