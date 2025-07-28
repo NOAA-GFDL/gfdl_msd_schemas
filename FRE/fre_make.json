@@ -171,7 +171,7 @@
                     "type": "string"
                 },
                 "env_setup": {
-                    "description": "Array of commands to initialize modules, load modules, and unload modules",
+                    "description": "Array of bash commands to initialize modules, load modules, and unload modules",
                     "type": "array",
                     "items": {"type": "string"}
                 },
