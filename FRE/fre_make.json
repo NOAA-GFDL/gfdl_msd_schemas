@@ -170,8 +170,8 @@
                     "description": "The compiler used to build the model",
                     "type": "string"
                 },
-                "env_setup": {
-                    "description": "Array of bash commands to initialize modules, load modules, and unload modules",
+                "envSetup": {
+                    "description": "Array of additional shell commands needed to compile the model. Can be used to initialize modules, load modules, and unload modules",
                     "type": "array",
                     "items": {"type": "string"}
                 },
