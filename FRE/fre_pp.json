@@ -148,10 +148,6 @@
               "description": "Switch to remove intermediate data files when they are no longer needed.",
               "type": "boolean"
             },
-            "do_timeavgs": {
-              "description": "Switch to turn on/off time-average file generation.",
-              "type": "boolean"
-            },
             "do_refinediag": {
               "description": "Switch to run refine-diag script(s) on history file to generate additional diagnostics.",
               "type": "boolean"
@@ -175,7 +171,6 @@
           },
           "required": [
             "clean_work",
-            "do_timeavgs",
             "do_refinediag",
             "do_atmos_plevel_masking",
             "do_preanalysis",
