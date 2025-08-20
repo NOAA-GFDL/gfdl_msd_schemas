@@ -2,7 +2,9 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "required": ["title", "base_date"],
-  "additionalProperties": false,
+  "additionalProperties": {
+    "type": "object"
+  },
   "properties": {
     "title": {
       "type": "string",
@@ -11,8 +13,8 @@
     "base_date": {
       "type": "string",
       "anyOf": [
-        {"enum": ["$baseDate"]},
-        {"pattern": "^([0-9]*[1-9][0-9]* ){3}([0-9]+ ){2}[0-9]+$"}
+        { "enum": ["$baseDate"] },
+        { "pattern": "^([0-9]*[1-9][0-9]* ){3}([0-9]+ ){2}[0-9]+$" }
       ]
     },
     "diag_files": {
@@ -28,8 +30,8 @@
           },
           "freq": {
             "anyOf": [
-              {"type": "string"},
-              {"type": "number"}
+              { "type": "string" },
+              { "type": "number" }
             ],
             "pattern": "^(-1|0|((-1|[0-9]+) +(seconds|minutes|hours|days|months|years)( *, *)?)+)$"
           },
@@ -41,28 +43,20 @@
             "type": "string",
             "minLength": 1
           },
-          "write_file": {
-            "type": "boolean"
-          },
+          "write_file": { "type": "boolean" },
           "global_meta": {
             "type": "array",
             "minItems": 1,
             "maxItems": 1,
-	    "items": {
+            "items": {
               "type": "object",
               "additionalProperties": {
-                "oneOf": [
-                  {"type": "string"},
-                  {"type": "number"},
-                  {"type": "boolean"}
-                ]
+                "type": ["string", "number", "boolean"]
               }
-	    }
+            }
           },
           "sub_region": {
-            "type": "array",
-            "minItems": 1,
-            "maxItems": 1,
+            "type": "object",
             "required": ["grid_type", "corner1", "corner2", "corner3", "corner4"],
             "properties": {
               "grid_type": {
@@ -73,37 +67,27 @@
                 "type": "array",
                 "minItems": 2,
                 "maxItems": 2,
-                "items": {
-                  "type": "number"
-                }
+                "items": { "type": "number" }
               },
               "corner2": {
                 "type": "array",
                 "minItems": 2,
                 "maxItems": 2,
-                "items": {
-                  "type": "number"
-                }
+                "items": { "type": "number" }
               },
               "corner3": {
                 "type": "array",
                 "minItems": 2,
                 "maxItems": 2,
-                "items": {
-                  "type": "number"
-                }
+                "items": { "type": "number" }
               },
               "corner4": {
                 "type": "array",
                 "minItems": 2,
                 "maxItems": 2,
-                "items": {
-                  "type": "number"
-                }
+                "items": { "type": "number" }
               },
-              "tile": {
-                "type": "number"
-              }
+              "tile": { "type": "number" }
             }
           },
           "new_file_freq": {
@@ -123,9 +107,7 @@
             "type": "string",
             "pattern": "^(0*[1-9][0-9]* (seconds|minutes|hours|days|months|years), )*0*[1-9][0-9]* (seconds|minutes|hours|days|months|years)$"
           },
-          "is_ocean": {
-            "type": "boolean"
-          },
+          "is_ocean": { "type": "boolean" },
           "kind": {
             "type": "string",
             "enum": ["r4", "r8", "i4", "i8"]
@@ -136,8 +118,9 @@
           },
           "reduction": {
             "type": "string",
-            "pattern": "^average$|^min$|^max$|^none$|^rms$|^sum$|^diurnal[1-9]+|^pow[1-9]+"
+            "pattern": "^(average|min|max|none|rms|sum|diurnal[1-9]+|pow[1-9]+)$"
           },
+
           "varlist": {
             "type": "array",
             "items": {
@@ -145,6 +128,10 @@
               "required": ["var_name"],
               "additionalProperties": false,
               "properties": {
+                "var_name": {
+                  "type": "string",
+                  "minLength": 1
+                },
                 "kind": {
                   "type": "string",
                   "enum": ["r4", "r8", "i4", "i8"]
@@ -155,15 +142,9 @@
                 },
                 "reduction": {
                   "type": "string",
-                  "pattern": "^average$|^min$|^max$|^none$|^rms$|^sum$|^diurnal[1-9]+|^pow[1-9]+"
+                  "pattern": "^(average|min|max|none|rms|sum|diurnal[1-9]+|pow[1-9]+)$"
                 },
-                "var_name": {
-                  "type": "string",
-                  "minLength": 1
-                },
-                "write_var": {
-                  "type": "boolean"
-                },
+                "write_var": { "type": "boolean" },
                 "output_name": {
                   "type": "string",
                   "minLength": 1
@@ -172,76 +153,93 @@
                   "type": "string",
                   "minLength": 1
                 },
+                "zbounds": { "type": "string" },
                 "attributes": {
                   "type": "array",
                   "minItems": 1,
                   "maxItems": 1,
-	          "items": {
+                  "items": {
                     "type": "object",
                     "additionalProperties": {
-                      "oneOf": [
-                        {"type": "string"},
-                        {"type": "number"},
-                        {"type": "boolean"}
-		      ]
-		    }
-	          }
+                      "type": ["string", "number", "boolean"]
+                    }
+                  }
+                }
+              }
+            }
+          },
+
+          "modules": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["module", "varlist"],
+              "additionalProperties": false,
+              "properties": {
+                "module": {
+                  "type": "string",
+                  "minLength": 1
                 },
-               "zbounds": {
-                  "type": "string"
+                "varlist": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["var_name"],
+                    "additionalProperties": false,
+                    "properties": {
+                      "var_name": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": ["r4", "r8", "i4", "i8"]
+                      },
+                      "reduction": {
+                        "type": "string",
+                        "pattern": "^(average|min|max|none|rms|sum|diurnal[1-9]+|pow[1-9]+)$"
+                      },
+                      "write_var": { "type": "boolean" },
+                      "output_name": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "long_name": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "zbounds": { "type": "string" },
+                      "attributes": {
+                        "type": "array",
+                        "minItems": 1,
+                        "maxItems": 1,
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "oneOf": [
+                              { "type": "string" },
+                              { "type": "number" },
+                              { "type": "boolean" }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
           }
         },
-        "allOf": [
+
+        "oneOf": [
           {
-            "if": {
-               "required": ["kind"]
-              },
-            "else": {
-              "properties": {
-                "varlist": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "required": ["kind"]
-                  }
-                }
-              }
-            }
+            "required": ["varlist"],
+            "not": { "required": ["modules"] }
           },
           {
-            "if": {
-               "required": ["module"]
-              },
-            "else": {
-              "properties": {
-                "varlist": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "required": ["module"]
-                  }
-                }
-              }
-            }
-          },
-          {
-            "if": {
-               "required": ["reduction"]
-              },
-            "else": {
-              "properties": {
-                "varlist": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "required": ["reduction"]
-                  }
-                }
-              }
-            }
+            "required": ["modules"],
+            "not": { "required": ["varlist"] }
           }
         ]
       }
