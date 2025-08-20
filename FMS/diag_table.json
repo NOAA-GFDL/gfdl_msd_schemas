@@ -51,11 +51,7 @@
             "items": {
               "type": "object",
               "additionalProperties": {
-                "oneOf": [
-                  { "type": "string" },
-                  { "type": "number" },
-                  { "type": "boolean" }
-                ]
+                "type": ["string", "number", "boolean"]
               }
             }
           },
@@ -165,11 +161,7 @@
                   "items": {
                     "type": "object",
                     "additionalProperties": {
-                      "oneOf": [
-                        { "type": "string" },
-                        { "type": "number" },
-                        { "type": "boolean" }
-                      ]
+                      "type": ["string", "number", "boolean"]
                     }
                   }
                 }
