@@ -217,6 +217,10 @@
                 "containerOutputLocation": {
                     "description": "The path to where the output model container will be located",
                     "type": "string"
+                },
+                "volume": {
+                    "description": "The path to the f5 or f6 location where datasets are located if needed for the checkout",
+                    "type": "string"
                 }
             }
         }
