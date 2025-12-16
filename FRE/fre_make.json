@@ -219,7 +219,7 @@
                     "type": "string"
                 },
                 "volume": {
-                    "description": "The path to the f5 or f6 location where datasets are located if needed for the checkout",
+                    "description": "The path to necessary datasets for podman/docker build, if referenced during code checkout",
                     "type": "string"
                 }
             }
