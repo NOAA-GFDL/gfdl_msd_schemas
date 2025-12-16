@@ -219,7 +219,7 @@
                     "type": "string"
                 },
                 "volume": {
-                    "description": "The path to necessary datasets for podman/docker build, if referenced during code checkout",
+                    "description": "The path to necessary datasets to mount for the podman/docker build, if referenced during code checkout",
                     "type": "string"
                 }
             }
