@@ -217,6 +217,10 @@
                 "containerOutputLocation": {
                     "description": "The path to where the output model container will be located",
                     "type": "string"
+                },
+                "volume": {
+                    "description": "The path to necessary datasets to mount for the podman/docker build, if referenced during code checkout",
+                    "type": "string"
                 }
             }
         }
