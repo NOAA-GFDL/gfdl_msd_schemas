@@ -59,37 +59,32 @@
             "type": "array",
             "minItems": 1,
             "maxItems": 1,
-            "required": ["grid_type", "corner1", "corner2", "corner3", "corner4"],
-            "properties": {
-              "grid_type": {
-                "type": "string",
-                "enum": ["indices", "latlon"]
-              },
-              "corner1": {
-                "type": "array",
-                "minItems": 2,
-                "maxItems": 2,
-                "items": { "type": "number" }
-              },
-              "corner2": {
-                "type": "array",
-                "minItems": 2,
-                "maxItems": 2,
-                "items": { "type": "number" }
-              },
-              "corner3": {
-                "type": "array",
-                "minItems": 2,
-                "maxItems": 2,
-                "items": { "type": "number" }
-              },
-              "corner4": {
-                "type": "array",
-                "minItems": 2,
-                "maxItems": 2,
-                "items": { "type": "number" }
-              },
-              "tile": { "type": "number" }
+            "items": {
+              "type": "object",
+              "required": ["grid_type", "corner1", "corner2", "corner3", "corner4"],
+              "properties": {
+                "grid_type": {
+                  "type": "string",
+                  "enum": ["indices", "latlon"]
+                },
+                "corner1": {
+                  "type": "string",
+                  "pattern": "^-?\\d+(\\.\\d+)? *, *-?\\d+(\\.\\d+)?$"
+                },
+                "corner2": {
+                  "type": "string",
+                  "pattern": "^-?\\d+(\\.\\d+)? *, *-?\\d+(\\.\\d+)?$"
+                },
+                "corner3": {
+                  "type": "string",
+                  "pattern": "^-?\\d+(\\.\\d+)? *, *-?\\d+(\\.\\d+)?$"
+                },
+                "corner4": {
+                  "type": "string",
+                  "pattern": "^-?\\d+(\\.\\d+)? *, *-?\\d+(\\.\\d+)?$"
+                },
+                "tile": { "type": "number" }
+              }
             }
           },
           "new_file_freq": {
