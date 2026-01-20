@@ -56,7 +56,9 @@
             }
           },
           "sub_region": {
-            "type": "object",
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1,
             "required": ["grid_type", "corner1", "corner2", "corner3", "corner4"],
             "properties": {
               "grid_type": {
