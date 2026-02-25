@@ -14,6 +14,14 @@
       "description": "The targets listed in the command",
       "type": "string"
     },
+    "workflow": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "run": {"$ref": "#/$defs/wf"},
+        "pp": {"$ref": "#/$defs/wf"}
+      }
+    },
     "directories": {
       "description": "FRE shared directories",
       "$ref": "#/$defs/dirs"
@@ -31,11 +39,28 @@
     "name",
     "platform",
     "target",
+    "workflow",
     "directories",
     "postprocess"
   ],
   "additionalProperties": true,
   "$defs": {
+    "wf": {
+      "type": "object",
+      "properties": {
+        "repo": {
+          "description": "The URL of the code repository",
+          "type": "string",
+          "format": "uri",
+          "qt-uri-protocols": ["https"],
+          "qt-uri-extensions": [".git"]
+        },
+        "tag": {
+          "description": "ah",
+          "type": "string"
+        }
+      }
+    },
     "dirs": {
       "type": "object",
       "properties": {
