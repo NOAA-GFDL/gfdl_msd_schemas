@@ -15,7 +15,7 @@
       "type": "string"
     },
     "workflow": {
-      "description": "",
+      "description": "Specified workflow repo and tag to be checkout out",
       "type": "object",
       "properties": {
         "run": {"$ref": "#/$defs/wf"},
