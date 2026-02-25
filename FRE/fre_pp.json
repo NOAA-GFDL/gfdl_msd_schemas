@@ -56,7 +56,7 @@
           "qt-uri-extensions": [".git"]
         },
         "tag": {
-          "description": "ah",
+          "description": "Version of code to check out",
           "type": "string"
         }
       }
