@@ -14,14 +14,6 @@
       "description": "The targets listed in the command",
       "type": "string"
     },
-    "workflow": {
-      "description": "Specified workflow repo and tag to be checkout out",
-      "type": "object",
-      "properties": {
-        "run": {"$ref": "#/$defs/wf"},
-        "pp": {"$ref": "#/$defs/wf"}
-      }
-    },
     "directories": {
       "description": "FRE shared directories",
       "$ref": "#/$defs/dirs"
@@ -39,28 +31,11 @@
     "name",
     "platform",
     "target",
-    "workflow",
     "directories",
     "postprocess"
   ],
   "additionalProperties": true,
   "$defs": {
-    "wf": {
-      "type": "object",
-      "properties": {
-        "repo": {
-          "description": "The URL of the code repository",
-          "type": "string",
-          "format": "uri",
-          "qt-uri-protocols": ["https"],
-          "qt-uri-extensions": [".git"]
-        },
-        "tag": {
-          "description": "Version of code to check out",
-          "type": "string"
-        }
-      }
-    },
     "dirs": {
       "type": "object",
       "properties": {
@@ -91,6 +66,27 @@
     "pp": {
       "type": "object",
       "properties": {
+        "workflow": {
+          "type": "object",
+          "properties": {
+            "repo": {
+              "description": "The URL of the code repository",
+              "type": "string",
+              "format": "uri",
+              "qt-uri-protocols": ["https"],
+              "qt-uri-extensions": [".git"]
+            },
+            "version": {
+              "description": "Version of code to check out",
+              "type": "string"
+            }
+          },
+          "required": [
+            "repo",
+            "version"
+          ],
+          "additionalProperties": false
+        },
         "settings": {
           "type:": "object",
           "properties": {
@@ -342,6 +338,7 @@
       },
       "required": [
         "components",
+        "workflow",
         "settings",
         "switches"
       ],
