@@ -72,9 +72,7 @@
             "repository": {
               "description": "The URL of the code repository",
               "type": "string",
-              "format": "uri",
-              "qt-uri-protocols": ["https"],
-              "qt-uri-extensions": [".git"]
+              "pattern": "^https://.+\\.git$"
             },
             "version": {
               "description": "Version of code to check out",
