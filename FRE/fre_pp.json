@@ -69,7 +69,7 @@
         "workflow": {
           "type": "object",
           "properties": {
-            "repo": {
+            "repository": {
               "description": "The URL of the code repository",
               "type": "string",
               "format": "uri",
@@ -82,7 +82,7 @@
             }
           },
           "required": [
-            "repo",
+            "repository",
             "version"
           ],
           "additionalProperties": false
