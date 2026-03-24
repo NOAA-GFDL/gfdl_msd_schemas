@@ -310,7 +310,7 @@
               "xyInterp": ["inputRealm", "sourceGrid", "interpMethod"]
             },
             "additionalProperties": false
-          },
+          }
         },
         "preanalysis": {
           "description": "Pre-analysis scripts to run on history files",
