@@ -311,8 +311,77 @@
             },
             "additionalProperties": false
           },
-          "minItems": 1,
-          "uniqueItems": true
+        },
+        "preanalysis": {
+          "description": "Pre-analysis scripts to run on history files",
+          "type:": "object",
+          "patternProperties": {
+            "^.*$": {
+              "type:": "object",
+              "properties": {
+                "script": {
+                  "description": "Path to the pre-analysis script",
+                  "type": "string"
+                },
+                "do_preanalysis": {
+                  "description": "Whether to run this pre-analysis script",
+                  "type": "boolean"
+                },
+                "input": {
+                  "description": "List of input components for the script",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "script",
+                "do_preanalysis"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "refinediag": {
+          "description": "Refine-diag scripts to run on history files",
+          "type:": "object",
+          "patternProperties": {
+            "^.*$": {
+              "type:": "object",
+              "properties": {
+                "script": {
+                  "description": "Path to the refine-diag script",
+                  "type": "string"
+                },
+                "do_refinediag": {
+                  "description": "Whether to run this refine-diag script",
+                  "type": "boolean"
+                },
+                "input": {
+                  "description": "List of input components for the script",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "output": {
+                  "description": "List of output components produced by the script",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "script",
+                "do_refinediag"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
         }
       },
       "required": [
