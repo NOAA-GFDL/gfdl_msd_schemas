@@ -67,7 +67,7 @@
       "type": "object",
       "properties": {
         "settings": {
-          "type:": "object",
+          "type": "object",
           "properties": {
             "history_segment": {
               "description": "Amount of time covered by a single history file (ISO8601 datetime)",
@@ -314,10 +314,10 @@
         },
         "preanalysis": {
           "description": "Pre-analysis scripts to run on history files",
-          "type:": "object",
+          "type": "object",
           "patternProperties": {
             "^.*$": {
-              "type:": "object",
+              "type": "object",
               "properties": {
                 "script": {
                   "description": "Path to the pre-analysis script",
@@ -346,10 +346,10 @@
         },
         "refinediag": {
           "description": "Refine-diag scripts to run on history files",
-          "type:": "object",
+          "type": "object",
           "patternProperties": {
             "^.*$": {
-              "type:": "object",
+              "type": "object",
               "properties": {
                 "script": {
                   "description": "Path to the refine-diag script",
@@ -396,7 +396,7 @@
       "additionalProperties": false,
       "patternProperties": {
         "^.*$": {
-          "type:": "object",
+          "type": "object",
           "properties": {
             "legacy": {
               "type": "object",
