@@ -116,19 +116,6 @@
             "pp_grid_spec": {
               "description": "Path to FMS grid definition tarfile.",
               "type": "string"
-            },
-            "refinediag_scripts": {
-              "description": "Path(s) to FMS grid definition tarfile.",
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "minItems": 1,
-              "uniqueItems": true
-            },
-            "preanalysis_script": {
-              "description": "Filepath to the user script.",
-              "type": "string"
             }
           },
           "required": [
@@ -317,7 +304,7 @@
                   "description": "Whether to run this pre-analysis script",
                   "type": "boolean"
                 },
-                "input": {
+                "inputs": {
                   "description": "List of input components for the script",
                   "type": "array",
                   "items": {
@@ -349,14 +336,14 @@
                   "description": "Whether to run this refine-diag script",
                   "type": "boolean"
                 },
-                "input": {
+                "inputs": {
                   "description": "List of input components for the script",
                   "type": "array",
                   "items": {
                     "type": "string"
                   }
                 },
-                "output": {
+                "outputs": {
                   "description": "List of output components produced by the script",
                   "type": "array",
                   "items": {
