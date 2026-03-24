@@ -148,16 +148,8 @@
               "description": "Switch to remove intermediate data files when they are no longer needed.",
               "type": "boolean"
             },
-            "do_refinediag": {
-              "description": "Switch to run refine-diag script(s) on history file to generate additional diagnostics.",
-              "type": "boolean"
-            },
             "do_atmos_plevel_masking": {
               "description": "Switch to mask atmos pressure-level output above/below surface pressure/atmos top.",
-              "type": "boolean"
-            },
-            "do_preanalysis": {
-              "description": "Switch to run a pre-analysis script on history files",
               "type": "boolean"
             },
             "do_analysis": {
@@ -171,9 +163,7 @@
           },
           "required": [
             "clean_work",
-            "do_refinediag",
             "do_atmos_plevel_masking",
-            "do_preanalysis",
             "do_analysis",
             "do_analysis_only"
           ],
