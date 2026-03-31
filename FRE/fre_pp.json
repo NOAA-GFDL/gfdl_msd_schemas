@@ -294,22 +294,22 @@
           }
         },
         "preanalysis": {
-          "description": "Pre-analysis scripts to run on history files",
+          "description": "User-specified cshell script to run on history files, their expected input history file names, and a switch",
           "type": "object",
           "patternProperties": {
             "^.*$": {
               "type": "object",
               "properties": {
                 "script": {
-                  "description": "Path to the pre-analysis script",
+                  "description": "Abssoute filepath to the script",
                   "type": "string"
                 },
                 "do_preanalysis": {
-                  "description": "Whether to run this pre-analysis script",
+                  "description": "Switch to run the script",
                   "type": "boolean"
                 },
                 "inputs": {
-                  "description": "List of input components for the script",
+                  "description": "List of input history files the script requires",
                   "type": "array",
                   "items": {
                     "type": "string"
@@ -326,29 +326,29 @@
           "additionalProperties": false
         },
         "refinediag": {
-          "description": "Refine-diag scripts to run on history files",
+          "description": "User-specified cshell script to run on history files and produce new history files to postprocess, their expected input and output history file names, and a switch",
           "type": "object",
           "patternProperties": {
             "^.*$": {
               "type": "object",
               "properties": {
                 "script": {
-                  "description": "Path to the refine-diag script",
+                  "description": "Absolute filepath to the script",
                   "type": "string"
                 },
                 "do_refinediag": {
-                  "description": "Whether to run this refine-diag script",
+                  "description": "Switch to run the script",
                   "type": "boolean"
                 },
                 "inputs": {
-                  "description": "List of input components for the script",
+                  "description": "List of input history files the script requires",
                   "type": "array",
                   "items": {
                     "type": "string"
                   }
                 },
                 "outputs": {
-                  "description": "List of output components produced by the script",
+                  "description": "List of output history files produced by the script",
                   "type": "array",
                   "items": {
                     "type": "string"
