@@ -43,7 +43,7 @@
           "description": "Directory path to raw model output.",
           "type": "string"
         },
-        "history_dir_refined": {
+        "refined_history_dir": {
           "description": "Directory path for netCDF files created via refinediag scripts.",
           "type": "string"
         },
