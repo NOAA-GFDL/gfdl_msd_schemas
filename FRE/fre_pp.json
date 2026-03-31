@@ -296,73 +296,67 @@
         "preanalysis": {
           "description": "User-specified cshell script to run on history files, their expected input history file names, and a switch",
           "type": "object",
-          "patternProperties": {
-            "^.*$": {
-              "type": "object",
-              "properties": {
-                "script": {
-                  "description": "Abssoute filepath to the script",
-                  "type": "string"
-                },
-                "do_preanalysis": {
-                  "description": "Switch to run the script",
-                  "type": "boolean"
-                },
-                "inputs": {
-                  "description": "List of input history files the script requires",
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "script": {
+                "description": "Abssoute filepath to the script",
+                "type": "string"
               },
-              "required": [
-                "script",
-                "do_preanalysis"
-              ],
-              "additionalProperties": false
-            }
-          },
-          "additionalProperties": false
+              "do_preanalysis": {
+                "description": "Switch to run the script",
+                "type": "boolean"
+              },
+              "inputs": {
+                "description": "List of input history files the script requires",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "script",
+              "do_preanalysis"
+            ],
+            "additionalProperties": false
+          }
         },
         "refinediag": {
           "description": "User-specified cshell script to run on history files and produce new history files to postprocess, their expected input and output history file names, and a switch",
           "type": "object",
-          "patternProperties": {
-            "^.*$": {
-              "type": "object",
-              "properties": {
-                "script": {
-                  "description": "Absolute filepath to the script",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "script": {
+                "description": "Absolute filepath to the script",
+                "type": "string"
+              },
+              "do_refinediag": {
+                "description": "Switch to run the script",
+                "type": "boolean"
+              },
+              "inputs": {
+                "description": "List of input history files the script requires",
+                "type": "array",
+                "items": {
                   "type": "string"
-                },
-                "do_refinediag": {
-                  "description": "Switch to run the script",
-                  "type": "boolean"
-                },
-                "inputs": {
-                  "description": "List of input history files the script requires",
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "outputs": {
-                  "description": "List of output history files produced by the script",
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
                 }
               },
-              "required": [
-                "script",
-                "do_refinediag"
-              ],
-              "additionalProperties": false
-            }
-          },
-          "additionalProperties": false
+              "outputs": {
+                "description": "List of output history files produced by the script",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "script",
+              "do_refinediag"
+            ],
+            "additionalProperties": false
+          }
         }
       },
       "required": [
