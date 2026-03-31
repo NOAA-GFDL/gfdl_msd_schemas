@@ -43,6 +43,10 @@
           "description": "Directory path to raw model output.",
           "type": "string"
         },
+        "refined_history_dir": {
+          "description": "Directory path for netCDF files created via refinediag scripts.",
+          "type": "string"
+        },
         "pp_dir": {
           "description": "Directory path to post-processing output.",
           "type": "string"
@@ -67,7 +71,7 @@
       "type": "object",
       "properties": {
         "settings": {
-          "type:": "object",
+          "type": "object",
           "properties": {
             "history_segment": {
               "description": "Amount of time covered by a single history file (ISO8601 datetime)",
@@ -116,19 +120,6 @@
             "pp_grid_spec": {
               "description": "Path to FMS grid definition tarfile.",
               "type": "string"
-            },
-            "refinediag_scripts": {
-              "description": "Path(s) to FMS grid definition tarfile.",
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "minItems": 1,
-              "uniqueItems": true
-            },
-            "preanalysis_script": {
-              "description": "Filepath to the user script.",
-              "type": "string"
             }
           },
           "required": [
@@ -148,16 +139,8 @@
               "description": "Switch to remove intermediate data files when they are no longer needed.",
               "type": "boolean"
             },
-            "do_refinediag": {
-              "description": "Switch to run refine-diag script(s) on history file to generate additional diagnostics.",
-              "type": "boolean"
-            },
             "do_atmos_plevel_masking": {
               "description": "Switch to mask atmos pressure-level output above/below surface pressure/atmos top.",
-              "type": "boolean"
-            },
-            "do_preanalysis": {
-              "description": "Switch to run a pre-analysis script on history files",
               "type": "boolean"
             },
             "do_analysis": {
@@ -171,9 +154,7 @@
           },
           "required": [
             "clean_work",
-            "do_refinediag",
             "do_atmos_plevel_masking",
-            "do_preanalysis",
             "do_analysis",
             "do_analysis_only"
           ],
@@ -310,9 +291,72 @@
               "xyInterp": ["inputRealm", "sourceGrid", "interpMethod"]
             },
             "additionalProperties": false
-          },
-          "minItems": 1,
-          "uniqueItems": true
+          }
+        },
+        "preanalysis": {
+          "description": "User-specified cshell script to run on history files, their expected input history file names, and a switch",
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "script": {
+                "description": "Absoute filepath to the script",
+                "type": "string"
+              },
+              "do_preanalysis": {
+                "description": "Switch to run the script",
+                "type": "boolean"
+              },
+              "inputs": {
+                "description": "List of input history files the script requires",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "script",
+              "do_preanalysis"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "refinediag": {
+          "description": "User-specified cshell script to run on history files and produce new history files to postprocess, their expected input and output history file names, and a switch",
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "script": {
+                "description": "Absolute filepath to the script",
+                "type": "string"
+              },
+              "do_refinediag": {
+                "description": "Switch to run the script",
+                "type": "boolean"
+              },
+              "inputs": {
+                "description": "List of input history files the script requires",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "outputs": {
+                "description": "List of output history files produced by the script",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "script",
+              "do_refinediag"
+            ],
+            "additionalProperties": false
+          }
         }
       },
       "required": [
@@ -327,7 +371,7 @@
       "additionalProperties": false,
       "patternProperties": {
         "^.*$": {
-          "type:": "object",
+          "type": "object",
           "properties": {
             "legacy": {
               "type": "object",
