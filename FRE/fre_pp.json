@@ -300,7 +300,7 @@
             "type": "object",
             "properties": {
               "script": {
-                "description": "Abssoute filepath to the script",
+                "description": "Absoute filepath to the script",
                 "type": "string"
               },
               "do_preanalysis": {
