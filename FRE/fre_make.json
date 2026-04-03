@@ -88,25 +88,13 @@
                             "type": "array",
                             "items": {
                                 "type": "string",
-                                "format": "uri",
-                                "qt-uri-protocols": [
-                                    "https"
-                                ],
-                                "qt-uri-extensions": [
-                                    ".git"
-                                ]
+                                "pattern": "^https://.+\\.git$"
                             }
                         },
                         {
                             "description": "The URL of the code repository",
                             "type": "string",
-                            "format": "uri",
-                            "qt-uri-protocols": [
-                                "https"
-                            ],
-                            "qt-uri-extensions": [
-                                ".git"
-                            ]            
+                            "pattern": "^https://.+\\.git$"
                         }
                     ]
                 },
