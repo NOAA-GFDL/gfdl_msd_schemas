@@ -94,28 +94,14 @@
               }
             },
             "pp_start": {
-              "description": "Start of the desired postprocessing (ISO8601 datetime).",
-              "oneOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "string",
-                  "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"
-                }
-              ]
+              "description": "Start of the desired postprocessing (ISO8601 datetime or YYYY).",
+              "type": "string",
+              "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"
             },
             "pp_stop": {
-              "description": "End of the desired postprocessing (ISO8601 datetime).",
-              "oneOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "string",
-                  "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"
-                }
-              ]
+              "description": "End of the desired postprocessing (ISO8601 datetime or YYYY).",
+              "type": "string",
+              "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"
             },
             "pp_grid_spec": {
               "description": "Path to FMS grid definition tarfile.",
@@ -401,9 +387,11 @@
                   ]
                 },
                 "date_range": {
+                  "description": "Date range for analysis script, in two 4-digit string form, e.g. ['YYYY', 'ZZZZ']",
                   "type": "array",
                   "items": {
-                    "type": "integer"
+                    "type": "string",
+                    "pattern": "^[0-9]{4}$"
                   },
                   "minItems": 2,
                   "maxItems": 2,
