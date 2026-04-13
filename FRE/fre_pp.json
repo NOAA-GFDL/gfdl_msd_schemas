@@ -279,13 +279,13 @@
                 "additionalProperties": false
               },
               "postprocess_on": {
-                "type": "boolean"
+                "type": "boolean",
+                "default": "True"
               }
             },
             "required": [
               "type",
-              "sources",
-              "postprocess_on"
+              "sources"
             ],
             "dependentRequired": {
               "xyInterp": ["inputRealm", "sourceGrid", "interpMethod"]
@@ -461,15 +461,15 @@
                   "pattern": "^P[0-9]+[M|Y]$"
                 },
                 "analysis_on": {
-                  "type": "boolean"
+                  "type": "boolean",
+                  "default": "True"
                 }
               },
               "required": [
                 "components",
                 "script_type",
                 "product",
-                "chunk_size",
-                "analysis_on"
+                "chunk_size"
               ]
             }
           },
