@@ -146,10 +146,6 @@
             "do_analysis": {
               "description": "Switch to launch analysis scripts",
               "type": "boolean"
-            },
-            "do_analysis_only": {
-              "description": "Switch to only launch analysis scripts",
-              "type": "boolean"
             }
           },
           "required": [
