@@ -136,6 +136,11 @@
             "do_analysis_only": {
               "description": "Switch to only launch analysis scripts",
               "type": "boolean"
+            },
+            "do_workflow_email": {
+              "description": "Switch to turn on Cylc scheduler emails",
+              "type": "boolean",
+              "default": "false"
             }
           },
           "required": [
