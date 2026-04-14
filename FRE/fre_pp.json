@@ -154,9 +154,7 @@
           },
           "required": [
             "clean_work",
-            "do_atmos_plevel_masking",
-            "do_analysis",
-            "do_analysis_only"
+            "do_atmos_plevel_masking"
           ],
           "additionalProperties": false
         },
