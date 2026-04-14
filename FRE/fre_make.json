@@ -37,6 +37,10 @@
             "description": "FRE platforms",
             "type": "array",
             "items": {"$ref": "#/$defs/Platform"}
+        },
+        "fre_properties": {
+            "description": "User-defined variables",
+            "type": "array"
         }
     },
     "$defs": {  
