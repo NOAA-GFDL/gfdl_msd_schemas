@@ -142,10 +142,6 @@
             "do_atmos_plevel_masking": {
               "description": "Switch to mask atmos pressure-level output above/below surface pressure/atmos top.",
               "type": "boolean"
-            },
-            "do_analysis": {
-              "description": "Switch to launch analysis scripts",
-              "type": "boolean"
             }
           },
           "required": [
