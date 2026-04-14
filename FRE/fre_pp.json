@@ -22,8 +22,8 @@
       "description": "FRE post-processing information",
       "$ref": "#/$defs/pp"
     },
-    "analysis": {
-      "description": "FRE analysis information",
+    "final-step-user-scripts": {
+      "description": "User scripts previously known as analysis scripts that act on postprocessed output",
       "$ref": "#/$defs/Analysis"
     }
   },
@@ -279,7 +279,7 @@
             "additionalProperties": false
           }
         },
-        "preanalysis": {
+        "first-step-user-scripts": {
           "description": "User-specified cshell script to run on history files, their expected input history file names, and a switch",
           "type": "object",
           "additionalProperties": {
@@ -289,9 +289,10 @@
                 "description": "Absoute filepath to the script",
                 "type": "string"
               },
-              "do_preanalysis": {
+              "switch": {
                 "description": "Switch to run the script",
-                "type": "boolean"
+                "type": "boolean",
+                "default": "True"
               },
               "inputs": {
                 "description": "List of input history files the script requires",
@@ -302,13 +303,12 @@
               }
             },
             "required": [
-              "script",
-              "do_preanalysis"
+              "script"
             ],
             "additionalProperties": false
           }
         },
-        "refinediag": {
+        "refinediag-user-scripts": {
           "description": "User-specified cshell script to run on history files and produce new history files to postprocess, their expected input and output history file names, and a switch",
           "type": "object",
           "additionalProperties": {
@@ -318,9 +318,10 @@
                 "description": "Absolute filepath to the script",
                 "type": "string"
               },
-              "do_refinediag": {
+              "switch": {
                 "description": "Switch to run the script",
-                "type": "boolean"
+                "type": "boolean",
+                "default": "True"
               },
               "inputs": {
                 "description": "List of input history files the script requires",
@@ -338,8 +339,7 @@
               }
             },
             "required": [
-              "script",
-              "do_refinediag"
+              "script"
             ],
             "additionalProperties": false
           }
@@ -359,111 +359,54 @@
         "^.*$": {
           "type": "object",
           "properties": {
-            "legacy": {
-              "type": "object",
-              "properties": {
-                "script": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "script"
-              ],
-              "additionalProperties": false
+            "script": {
+              "type": "string"
             },
-            "required": {
-              "type": "object",
-              "properties": {
-                "data_frequency": {
-                  "description": "https://github.com/NOAA-GFDL/CMIP6_CVs/blob/main/CMIP6_frequency.json",
-                  "type": "string",
-                  "enum": [
-                    "yr",
-                    "mon",
-                    "day",
-                    "6hr",
-                    "3hr",
-                    "1hr"
-                  ]
-                },
-                "date_range": {
-                  "description": "Date range for analysis script, in two 4-digit string form, e.g. ['YYYY', 'ZZZZ']",
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "pattern": "^[0-9]{4}$"
-                  },
-                  "minItems": 2,
-                  "maxItems": 2,
-                  "uniqueItems": false
-                },
-                "use_gfdl_mdtf_env": {
-                  "description": "For MDTF: switch to use centrally-installed conda environment at GFDL",
-                  "type": "boolean"
-                },
-                "pods": {
-                  "description": "For MDTF: list of PODs to run",
-                  "type": "array"
-                },
-                "custom_pod_info_json": {
-                  "description": "For MDTF: optional path to a custom POD JSON configuration file",
-                  "type": "string"
-                }
+            "date_range": {
+              "description": "Date range for analysis script, in two 4-digit string form, e.g. ['YYYY', 'ZZZZ']. Optional; will use postprocess start/stop if not specified.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[0-9]{4}$"
               },
-              "required": [
-                "data_frequency",
-                "date_range"
-              ],
-              "additionalProperties": false
+              "minItems": 2,
+              "maxItems": 2,
+              "uniqueItems": false
             },
-            "workflow": {
-              "type": "object",
-              "properties": {
-                "components": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  },
-                  "minItems": 1,
-                  "uniqueItems": true
-                },
-                "script_type": {
-                  "description": "Whether the script is to process each chunk independently, cumulatively, or run only once after all chunks are ready",
-                  "type": "string",
-                  "enum": [
-                    "independent",
-                    "cumulative",
-                    "one-shot"
-                  ]
-                },
-                "product": {
-                  "type": "string",
-                  "enum": [
-                    "ts",
-                    "av"
-                  ]
-                },
-                "chunk_size": {
-                  "description": "ISO8601 duration string representing the chunk size to use as input for this script",
-                  "type": "string",
-                  "pattern": "^P[0-9]+[M|Y]$"
-                },
-                "analysis_on": {
-                  "type": "boolean"
-                }
-              },
-              "required": [
-                "components",
-                "script_type",
-                "product",
-                "chunk_size",
-                "analysis_on"
+            "flavor_type": {
+              "description": "Type of final-step-user-script. Choices: legacy, esnb, mdtf",
+              "type": "string",
+              "enum": [
+                "legacy",
+                "esnb",
+                "mdtf"
               ]
+            },
+            "flavor_config": {
+              "description": "Specific configuration for the flavor of final-step-user-script",
+              "type": "object",
+              "additionalProperties": true
+            },
+            "when_to_run": {
+              "description": "Whether the script is to process each chunk independently, cumulatively, or run only once after all chunks are ready",
+              "type": "string",
+              "enum": [
+                "independent",
+                "cumulative",
+                "one-shot"
+              ]
+            },
+            "chunk_size": {
+              "description": "ISO8601 duration string representing the chunk size to use as input for this script",
+              "type": "string",
+              "pattern": "^P[0-9]+[M|Y]$"
             }
           },
           "required": [
-            "required",
-            "workflow"
+            "script",
+            "when_to_run",
+            "flavor_type",
+            "chunk_size"
           ],
           "additionalProperties": false
         }
