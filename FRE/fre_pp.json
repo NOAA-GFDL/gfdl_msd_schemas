@@ -94,28 +94,14 @@
               }
             },
             "pp_start": {
-              "description": "Start of the desired postprocessing (ISO8601 datetime).",
-              "oneOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "string",
-                  "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"
-                }
-              ]
+              "description": "Start of the desired postprocessing (ISO8601 datetime or YYYY).",
+              "type": "string",
+              "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"
             },
             "pp_stop": {
-              "description": "End of the desired postprocessing (ISO8601 datetime).",
-              "oneOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "type": "string",
-                  "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"
-                }
-              ]
+              "description": "End of the desired postprocessing (ISO8601 datetime or YYYY).",
+              "type": "string",
+              "pattern": "(^[0-9]{4}$)|(^[0-9]{8}T[0-9]{4}Z$)"
             },
             "pp_grid_spec": {
               "description": "Path to FMS grid definition tarfile.",
@@ -142,6 +128,11 @@
             "do_atmos_plevel_masking": {
               "description": "Switch to mask atmos pressure-level output above/below surface pressure/atmos top.",
               "type": "boolean"
+            },
+            "do_workflow_email": {
+              "description": "Switch to turn on Cylc scheduler emails",
+              "type": "boolean",
+              "default": "false"
             }
           },
           "required": [
@@ -391,9 +382,11 @@
                   ]
                 },
                 "date_range": {
+                  "description": "Date range for analysis script, in two 4-digit string form, e.g. ['YYYY', 'ZZZZ']",
                   "type": "array",
                   "items": {
-                    "type": "integer"
+                    "type": "string",
+                    "pattern": "^[0-9]{4}$"
                   },
                   "minItems": 2,
                   "maxItems": 2,
