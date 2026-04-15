@@ -25,6 +25,10 @@
     "analysis": {
       "description": "FRE analysis information",
       "$ref": "#/$defs/Analysis"
+    },
+    "fre_properties": {
+      "description": "User-defined variables",
+      "type": "array"
     }
   },
   "required": [
