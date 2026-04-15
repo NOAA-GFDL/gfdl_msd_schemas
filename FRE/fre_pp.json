@@ -129,20 +129,15 @@
               "description": "Switch to mask atmos pressure-level output above/below surface pressure/atmos top.",
               "type": "boolean"
             },
-            "do_analysis": {
-              "description": "Switch to launch analysis scripts",
-              "type": "boolean"
-            },
-            "do_analysis_only": {
-              "description": "Switch to only launch analysis scripts",
-              "type": "boolean"
+            "do_workflow_email": {
+              "description": "Switch to turn on Cylc scheduler emails",
+              "type": "boolean",
+              "default": "false"
             }
           },
           "required": [
             "clean_work",
-            "do_atmos_plevel_masking",
-            "do_analysis",
-            "do_analysis_only"
+            "do_atmos_plevel_masking"
           ],
           "additionalProperties": false
         },
@@ -265,13 +260,13 @@
                 "additionalProperties": false
               },
               "postprocess_on": {
-                "type": "boolean"
+                "type": "boolean",
+                "default": "True"
               }
             },
             "required": [
               "type",
-              "sources",
-              "postprocess_on"
+              "sources"
             ],
             "dependentRequired": {
               "xyInterp": ["inputRealm", "sourceGrid", "interpMethod"]
