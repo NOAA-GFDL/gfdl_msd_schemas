@@ -400,6 +400,11 @@
               "description": "ISO8601 duration string representing the chunk size to use as input for this script",
               "type": "string",
               "pattern": "^P[0-9]+[M|Y]$"
+            },
+            "switch": {
+              "description": "Switch to run the script",
+              "type": "boolean",
+              "default": "true"
             }
           },
           "required": [
