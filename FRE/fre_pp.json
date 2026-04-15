@@ -284,7 +284,7 @@
                 "description": "Absoute filepath to the script",
                 "type": "string"
               },
-              "switch": {
+              "user_script_on": {
                 "description": "Switch to run the script",
                 "type": "boolean",
                 "default": "True"
@@ -313,7 +313,7 @@
                 "description": "Absolute filepath to the script",
                 "type": "string"
               },
-              "switch": {
+              "user_script_on": {
                 "description": "Switch to run the script",
                 "type": "boolean",
                 "default": "True"
@@ -396,7 +396,7 @@
               "type": "string",
               "pattern": "^P[0-9]+[M|Y]$"
             },
-            "switch": {
+            "user_script_on": {
               "description": "Switch to run the script",
               "type": "boolean",
               "default": "true"
