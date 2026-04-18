@@ -20,11 +20,18 @@
     },
     "postprocess": {
       "description": "FRE post-processing information",
-      "$ref": "#/$defs/pp"
+      "$ref": "#/$defs/Postprocess"
     },
     "final-step-user-scripts": {
       "description": "User scripts previously known as analysis scripts that act on postprocessed output",
       "$ref": "#/$defs/Analysis"
+    },
+    "fre_properties": {
+      "description": "User-defined variables",
+      "type": "array"
+    },
+    "build": {
+      "description": "Dummy placeholder so additionalProperties can be false"
     }
   },
   "required": [
@@ -34,7 +41,7 @@
     "directories",
     "postprocess"
   ],
-  "additionalProperties": true,
+  "additionalProperties": false,
   "$defs": {
     "dirs": {
       "type": "object",
@@ -67,7 +74,7 @@
       ],
       "additionalProperties": false
     },
-    "pp": {
+    "Postprocess": {
       "type": "object",
       "properties": {
         "settings": {
