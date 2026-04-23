@@ -74,6 +74,25 @@
     "pp": {
       "type": "object",
       "properties": {
+        "workflow": {
+          "type": "object",
+          "properties": {
+            "repository": {
+              "description": "The URL of the code repository",
+              "type": "string",
+              "pattern": "^https://.+\\.git$"
+            },
+            "version": {
+              "description": "Version of code to check out",
+              "type": "string"
+            }
+          },
+          "required": [
+            "repository",
+            "version"
+          ],
+          "additionalProperties": false
+        },
         "settings": {
           "type": "object",
           "properties": {
@@ -346,6 +365,7 @@
       },
       "required": [
         "components",
+        "workflow",
         "settings",
         "switches"
       ],
