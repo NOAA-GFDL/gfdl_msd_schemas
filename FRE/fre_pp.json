@@ -366,7 +366,7 @@
               "type": "boolean",
               "default": true
             },
-            "trigger": {
+            "workflow": {
               "description": "When and for which components to run the script",
               "type": "object",
               "properties": {
@@ -459,7 +459,7 @@
               "uniqueItems": false
             }
           },
-          "required": ["trigger", "install"],
+          "required": ["workflow", "install"],
           "if": {
             "properties": {
               "install": {
@@ -470,7 +470,7 @@
             "required": ["install"]
           },
           "then": {
-            "required": ["trigger", "install", "data"]
+            "required": ["workflow", "install", "data"]
           },
           "additionalProperties": false
         }
