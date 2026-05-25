@@ -361,8 +361,91 @@
         "^.*$": {
           "type": "object",
           "properties": {
-            "script": {
-              "type": "string"
+            "user_script_on": {
+              "description": "Switch to enable or disable this script without removing it",
+              "type": "boolean",
+              "default": true
+            },
+            "trigger": {
+              "description": "When and for which components to run the script",
+              "type": "object",
+              "properties": {
+                "components": {
+                  "description": "List of postprocess components required by this script",
+                  "type": "array",
+                  "items": {"type": "string"},
+                  "minItems": 1
+                },
+                "interval": {
+                  "description": "How often to run the script (ISO8601 duration)",
+                  "type": "string",
+                  "pattern": "^P[0-9]+[MY]$"
+                },
+                "when_to_run": {
+                  "description": "Whether the script processes each chunk independently, cumulatively, or runs once after all chunks are ready",
+                  "type": "string",
+                  "enum": ["independent", "cumulative", "one-shot"]
+                }
+              },
+              "required": ["components", "interval", "when_to_run"],
+              "additionalProperties": false
+            },
+            "install": {
+              "description": "How to install and run the script",
+              "type": "object",
+              "oneOf": [
+                {
+                  "properties": {
+                    "method": {"const": "legacy"},
+                    "path": {
+                      "description": "Absolute path to the script",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["method", "path"],
+                  "additionalProperties": false
+                },
+                {
+                  "properties": {
+                    "method": {"const": "pip"},
+                    "package": {
+                      "description": "Pip package name",
+                      "type": "string"
+                    },
+                    "version": {
+                      "description": "Pip package version constraint",
+                      "type": "string"
+                    },
+                    "entry_point": {
+                      "description": "Specific callable or console script to invoke",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["method", "package"],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "data": {
+              "description": "Data requirements; required for legacy scripts",
+              "type": "object",
+              "properties": {
+                "frequency": {
+                  "description": "Required data frequency",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "Required data type (e.g. timeseries, climatology)",
+                  "type": "string"
+                }
+              },
+              "required": ["frequency", "type"],
+              "additionalProperties": false
+            },
+            "config": {
+              "description": "Script-internal configuration passed through to the script unchanged",
+              "type": "object",
+              "additionalProperties": true
             },
             "date_range": {
               "description": "Date range for analysis script, in two 4-digit string form, e.g. ['YYYY', 'ZZZZ']. Optional; will use postprocess start/stop if not specified.",
@@ -374,47 +457,21 @@
               "minItems": 2,
               "maxItems": 2,
               "uniqueItems": false
-            },
-            "flavor_type": {
-              "description": "Type of final-step-user-script. Choices: legacy, esnb, mdtf",
-              "type": "string",
-              "enum": [
-                "legacy",
-                "esnb",
-                "mdtf"
-              ]
-            },
-            "flavor_config": {
-              "description": "Specific configuration for the flavor of final-step-user-script",
-              "type": "object",
-              "additionalProperties": true
-            },
-            "when_to_run": {
-              "description": "Whether the script is to process each chunk independently, cumulatively, or run only once after all chunks are ready",
-              "type": "string",
-              "enum": [
-                "independent",
-                "cumulative",
-                "one-shot"
-              ]
-            },
-            "chunk_size": {
-              "description": "ISO8601 duration string representing the chunk size to use as input for this script",
-              "type": "string",
-              "pattern": "^P[0-9]+[M|Y]$"
-            },
-            "user_script_on": {
-              "description": "Switch to run the script",
-              "type": "boolean",
-              "default": "true"
             }
           },
-          "required": [
-            "script",
-            "when_to_run",
-            "flavor_type",
-            "chunk_size"
-          ],
+          "required": ["trigger", "install"],
+          "if": {
+            "properties": {
+              "install": {
+                "properties": {"method": {"const": "legacy"}},
+                "required": ["method"]
+              }
+            },
+            "required": ["install"]
+          },
+          "then": {
+            "required": ["trigger", "install", "data"]
+          },
           "additionalProperties": false
         }
       }
