@@ -69,19 +69,19 @@
                 },
                 "corner1": {
                   "type": "string",
-                  "pattern": "^-?\\d+(\\.\\d+)? *, *-?\\d+(\\.\\d+)?$"
+                  "pattern": "^-?\\d+(\\.\\d+)? -?\\d+(\\.\\d+)?$"
                 },
                 "corner2": {
                   "type": "string",
-                  "pattern": "^-?\\d+(\\.\\d+)? *, *-?\\d+(\\.\\d+)?$"
+                  "pattern": "^-?\\d+(\\.\\d+)? -?\\d+(\\.\\d+)?$"
                 },
                 "corner3": {
                   "type": "string",
-                  "pattern": "^-?\\d+(\\.\\d+)? *, *-?\\d+(\\.\\d+)?$"
+                  "pattern": "^-?\\d+(\\.\\d+)? -?\\d+(\\.\\d+)?$"
                 },
                 "corner4": {
                   "type": "string",
-                  "pattern": "^-?\\d+(\\.\\d+)? *, *-?\\d+(\\.\\d+)?$"
+                  "pattern": "^-?\\d+(\\.\\d+)? -?\\d+(\\.\\d+)?$"
                 },
                 "tile": { "type": "number" }
               }
@@ -150,7 +150,10 @@
                   "type": "string",
                   "minLength": 1
                 },
-                "zbounds": { "type": "string" },
+                "zbounds": {
+                  "type": "string",
+                  "pattern": "^-?\\d+(\\.\\d+)? -?\\d+(\\.\\d+)?$"
+                },
                 "attributes": {
                   "type": "array",
                   "minItems": 1,
@@ -228,15 +231,60 @@
             }
           }
         },
-
-        "oneOf": [
+        "allOf": [
           {
-            "required": ["varlist"],
-            "not": { "required": ["modules"] }
+            "oneOf": [
+              {
+                "required": ["varlist"],
+                "not": { "required": ["modules"] }
+              },
+              {
+                "required": ["modules"],
+                "not": { "required": ["varlist"] }
+              }
+            ]
           },
           {
-            "required": ["modules"],
-            "not": { "required": ["varlist"] }
+            "anyOf": [
+              { "required": ["kind"] },
+              {
+                "properties": {
+                  "varlist": {
+                    "items": { "required": ["kind"] }
+                  },
+                  "modules": {
+                    "items": {
+                      "properties": {
+                        "varlist": {
+                          "items": { "required": ["kind"] }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "anyOf": [
+              { "required": ["reduction"] },
+              {
+                "properties": {
+                  "varlist": {
+                    "items": { "required": ["reduction"] }
+                  },
+                  "modules": {
+                    "items": {
+                      "properties": {
+                        "varlist": {
+                          "items": { "required": ["reduction"] }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
           }
         ]
       }
