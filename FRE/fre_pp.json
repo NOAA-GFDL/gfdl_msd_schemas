@@ -423,9 +423,13 @@
                     "entry_point": {
                       "description": "Specific callable or console script to invoke",
                       "type": "string"
+                    },
+                    "python": {
+                      "description": "Python executable used to create the venv",
+                      "type": "string"
                     }
                   },
-                  "required": ["method", "package", "entry_point"],
+                  "required": ["method", "package", "entry_point", "python"],
                   "additionalProperties": false
                 }
               ]
