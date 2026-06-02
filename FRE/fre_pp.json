@@ -384,7 +384,7 @@
                 "when_to_run": {
                   "description": "Whether the script processes each chunk independently, cumulatively, or runs once after all chunks are ready",
                   "type": "string",
-                  "enum": ["independent", "cumulative", "one-shot"]
+                  "enum": ["independent", "cumulative"]
                 }
               },
               "required": ["components", "interval", "when_to_run"],
@@ -409,7 +409,11 @@
                   "properties": {
                     "method": {"const": "pip"},
                     "package": {
-                      "description": "Pip package name",
+                      "description": "Pip package name or git URL (git@host:user/repo.git also accepted)",
+                      "type": "string"
+                    },
+                    "branch": {
+                      "description": "Branch, tag, or commit to install from (optional)",
                       "type": "string"
                     },
                     "version": {
@@ -421,7 +425,7 @@
                       "type": "string"
                     }
                   },
-                  "required": ["method", "package"],
+                  "required": ["method", "package", "entry_point"],
                   "additionalProperties": false
                 }
               ]
