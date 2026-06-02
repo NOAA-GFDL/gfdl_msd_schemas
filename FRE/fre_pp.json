@@ -396,7 +396,7 @@
               "oneOf": [
                 {
                   "properties": {
-                    "method": {"const": "legacy"},
+                    "method": {"const": "cshell"},
                     "path": {
                       "description": "Absolute path to the script",
                       "type": "string"
@@ -427,7 +427,7 @@
               ]
             },
             "data": {
-              "description": "Data requirements; required for legacy scripts",
+              "description": "Data requirements; required for legacy cshell scripts",
               "type": "object",
               "properties": {
                 "frequency": {
@@ -463,7 +463,7 @@
           "if": {
             "properties": {
               "install": {
-                "properties": {"method": {"const": "legacy"}},
+                "properties": {"method": {"const": "cshell"}},
                 "required": ["method"]
               }
             },
