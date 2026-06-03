@@ -431,6 +431,33 @@
                   },
                   "required": ["method", "package", "entry_point", "python"],
                   "additionalProperties": false
+                },
+                {
+                  "properties": {
+                    "method": {"const": "conda"},
+                    "package": {
+                      "description": "Git URL of the repository to clone (git@host:user/repo.git also accepted)",
+                      "type": "string"
+                    },
+                    "branch": {
+                      "description": "Branch, tag, or commit to clone (optional)",
+                      "type": "string"
+                    },
+                    "environment_file": {
+                      "description": "Path to the conda environment file within the cloned repo (optional, defaults to environment.yaml)",
+                      "type": "string"
+                    },
+                    "entry_point": {
+                      "description": "Specific callable or console script to invoke",
+                      "type": "string"
+                    },
+                    "conda_executable": {
+                      "description": "Conda/mamba/micromamba executable used to create the environment",
+                      "type": "string"
+                    }
+                  },
+                  "required": ["method", "package", "entry_point", "conda_executable"],
+                  "additionalProperties": false
                 }
               ]
             },
