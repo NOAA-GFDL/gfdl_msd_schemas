@@ -382,132 +382,86 @@
                   "pattern": "^P[0-9]+[MY]$"
                 },
                 "when_to_run": {
-                  "description": "Whether the script processes each chunk independently, cumulatively, or runs once after all chunks are ready",
+                  "description": "Whether the script processes each chunk independently or cumulatively",
                   "type": "string",
                   "enum": ["independent", "cumulative"]
                 }
               },
               "required": ["components", "interval", "when_to_run"],
               "additionalProperties": false
-            },
-            "install": {
-              "description": "How to install and run the script",
-              "type": "object",
-              "oneOf": [
-                {
-                  "properties": {
-                    "method": {"const": "cshell"},
-                    "path": {
-                      "description": "Absolute path to the script",
-                      "type": "string"
-                    }
-                  },
-                  "required": ["method", "path"],
-                  "additionalProperties": false
-                },
-                {
-                  "properties": {
-                    "method": {"const": "pip"},
-                    "package": {
-                      "description": "Pip package name or git URL (git@host:user/repo.git also accepted)",
-                      "type": "string"
-                    },
-                    "branch": {
-                      "description": "Branch, tag, or commit to install from (optional)",
-                      "type": "string"
-                    },
-                    "version": {
-                      "description": "Pip package version constraint",
-                      "type": "string"
-                    },
-                    "entry_point": {
-                      "description": "Specific callable or console script to invoke",
-                      "type": "string"
-                    },
-                    "python": {
-                      "description": "Python executable used to create the venv",
-                      "type": "string"
-                    }
-                  },
-                  "required": ["method", "package", "entry_point", "python"],
-                  "additionalProperties": false
-                },
-                {
-                  "properties": {
-                    "method": {"const": "conda"},
-                    "package": {
-                      "description": "Git URL of the repository to clone (git@host:user/repo.git also accepted)",
-                      "type": "string"
-                    },
-                    "branch": {
-                      "description": "Branch, tag, or commit to clone (optional)",
-                      "type": "string"
-                    },
-                    "environment_file": {
-                      "description": "Path to the conda environment file within the cloned repo (optional, defaults to environment.yaml)",
-                      "type": "string"
-                    },
-                    "entry_point": {
-                      "description": "Specific callable or console script to invoke",
-                      "type": "string"
-                    },
-                    "conda_executable": {
-                      "description": "Conda/mamba/micromamba executable used to create the environment",
-                      "type": "string"
-                    }
-                  },
-                  "required": ["method", "package", "entry_point", "conda_executable"],
-                  "additionalProperties": false
-                }
-              ]
-            },
-            "data": {
-              "description": "Data requirements; required for legacy cshell scripts",
-              "type": "object",
-              "properties": {
-                "frequency": {
-                  "description": "Required data frequency",
-                  "type": "string"
-                },
-                "type": {
-                  "description": "Required data type (e.g. timeseries, climatology)",
-                  "type": "string"
-                }
-              },
-              "required": ["frequency", "type"],
-              "additionalProperties": false
-            },
-            "config": {
-              "description": "Script-internal configuration passed through to the script unchanged",
-              "type": "object",
-              "additionalProperties": true
-            },
-            "date_range": {
-              "description": "Date range for analysis script, in two 4-digit string form, e.g. ['YYYY', 'ZZZZ']. Optional; will use postprocess start/stop if not specified.",
-              "type": "array",
-              "items": {
-                "type": "string",
-                "pattern": "^[0-9]{4}$"
-              },
-              "minItems": 2,
-              "maxItems": 2,
-              "uniqueItems": false
             }
           },
-          "required": ["workflow", "install"],
-          "if": {
-            "properties": {
-              "install": {
-                "properties": {"method": {"const": "cshell"}},
-                "required": ["method"]
-              }
+          "required": ["workflow"],
+          "oneOf": [
+            {
+              "description": "Legacy cshell script; called from the bash job via sed-expansion",
+              "properties": {
+                "cshell": {
+                  "description": "Absolute path to the cshell script",
+                  "type": "string"
+                },
+                "data": {
+                  "description": "PP product type and frequency to stage for this script",
+                  "type": "object",
+                  "properties": {
+                    "frequency": {
+                      "description": "Required data frequency",
+                      "type": "string"
+                    },
+                    "type": {
+                      "description": "Required data type (ts or av)",
+                      "type": "string",
+                      "enum": ["ts", "av"]
+                    }
+                  },
+                  "required": ["frequency", "type"],
+                  "additionalProperties": false
+                }
+              },
+              "required": ["cshell", "data"]
             },
-            "required": ["install"]
-          },
-          "then": {
-            "required": ["workflow", "install", "data"]
-          },
-          "additionalProperties": false
+            {
+              "description": "Generic script with optional setup and teardown phases",
+              "properties": {
+                "before_script": {
+                  "description": "Shell commands to run before the main script (e.g. environment setup, package install)",
+                  "type": "array",
+                  "items": {"type": "string"}
+                },
+                "script": {
+                  "description": "Shell commands comprising the main analysis",
+                  "type": "array",
+                  "items": {"type": "string"},
+                  "minItems": 1
+                },
+                "after_script": {
+                  "description": "Shell commands to run after the main script (cleanup; always runs)",
+                  "type": "array",
+                  "items": {"type": "string"}
+                },
+                "settings": {
+                  "description": "User-defined configuration serialized to $SETTINGS_YAML and available to the script",
+                  "type": "object",
+                  "additionalProperties": {"type": "string"}
+                },
+                "data_request": {
+                  "description": "Variables and frequencies this script requires (informational; not acted on in v1)",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "variable": {"type": "string"},
+                      "frequency": {"type": "string"}
+                    },
+                    "required": ["variable", "frequency"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["script"]
+            }
+          ],
+          "unevaluatedProperties": false
         }
       }
     }
