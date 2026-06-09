@@ -266,7 +266,7 @@
                 },
                 "additionalProperties": false
               },
-              "postprocess_on": {
+              "postprocess-on": {
                 "type": "boolean",
                 "default": "True"
               }
@@ -291,7 +291,7 @@
                 "description": "Absoute filepath to the script",
                 "type": "string"
               },
-              "user_script_on": {
+              "user-script-on": {
                 "description": "Switch to run the script",
                 "type": "boolean",
                 "default": "True"
@@ -320,7 +320,7 @@
                 "description": "Absolute filepath to the script",
                 "type": "string"
               },
-              "user_script_on": {
+              "user-script-on": {
                 "description": "Switch to run the script",
                 "type": "boolean",
                 "default": "True"
@@ -361,7 +361,7 @@
         "^.*$": {
           "type": "object",
           "properties": {
-            "user_script_on": {
+            "user-script-on": {
               "description": "Switch to enable or disable this script without removing it",
               "type": "boolean",
               "default": true
@@ -381,13 +381,13 @@
                   "type": "string",
                   "pattern": "^P[0-9]+[MY]$"
                 },
-                "when_to_run": {
+                "when-to-run": {
                   "description": "Whether the script processes each chunk independently or cumulatively",
                   "type": "string",
                   "enum": ["independent", "cumulative"]
                 }
               },
-              "required": ["components", "interval", "when_to_run"],
+              "required": ["components", "interval", "when-to-run"],
               "additionalProperties": false
             }
           },
@@ -423,7 +423,7 @@
             {
               "description": "Generic script with optional setup and teardown phases",
               "properties": {
-                "before_script": {
+                "before-script": {
                   "description": "Shell commands to run before the main script (e.g. environment setup, package install)",
                   "type": "array",
                   "items": {"type": "string"}
@@ -434,7 +434,7 @@
                   "items": {"type": "string"},
                   "minItems": 1
                 },
-                "after_script": {
+                "after-script": {
                   "description": "Shell commands to run after the main script (cleanup; always runs)",
                   "type": "array",
                   "items": {"type": "string"}
@@ -444,7 +444,7 @@
                   "type": "object",
                   "additionalProperties": {"type": "string"}
                 },
-                "data_request": {
+                "data-request": {
                   "description": "Variables and frequencies this script requires (informational; not acted on in v1)",
                   "type": "array",
                   "items": {
