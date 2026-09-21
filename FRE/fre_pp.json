@@ -28,7 +28,7 @@
     },
     "fre_properties": {
       "description": "User-defined variables",
-      "type": "array"
+      "type": "object"
     }
   },
   "required": [
@@ -146,7 +146,7 @@
           "additionalProperties": false
         },
         "components": {
-          "type": "array",
+          "type": "object",
           "items": {
             "type": "object",
             "properties": {
